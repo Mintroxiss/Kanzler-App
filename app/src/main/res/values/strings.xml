@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Kanzler</string>
+    <string name="kyrgyz_code">+996</string>
+    <string name="password">Пароль</string>
+    <string name="password_info">Пароль должен содержать\nминимум 6 символов</string>
+    <string name="authorisation">Войти</string>
+    <string name="forget_password">Не помню пароль</string>
+    <string name="first_session">Впервые у нас?</string>
+    <string name="wing_description">Kyrgyzstan Wing</string>
+    <string name="logo_description">Kanzler logo</string>
+    <string name="info_icon_description">Info Icon</string>
+    <string name="reg_button">Зарегистрироваться</string>
+</resources>
