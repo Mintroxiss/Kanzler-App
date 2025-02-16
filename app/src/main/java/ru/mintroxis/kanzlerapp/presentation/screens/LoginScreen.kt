@@ -40,9 +40,9 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import ru.mintroxis.kanzlerapp.R
 import com.owlbuddy.www.countrycodechooser.CountryCodeChooser
 import com.owlbuddy.www.countrycodechooser.utils.enums.CountryCodeType
-import ru.mintroxis.kanzlerapp.R
 import ru.mintroxis.kanzlerapp.presentation.components.BrightButton
 import ru.mintroxis.kanzlerapp.presentation.components.ContentColumn
 import ru.mintroxis.kanzlerapp.presentation.components.InfoIconButton
