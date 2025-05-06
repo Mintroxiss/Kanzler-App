@@ -10,4 +10,9 @@
     <string name="logo_description">Kanzler logo</string>
     <string name="info_icon_description">Info Icon</string>
     <string name="reg_button">Зарегистрироваться</string>
+    <string name="name">Имя</string>
+    <string name="surname">Фамилия</string>
+    <string name="date_of_birth">Дата рождения</string>
+    <string name="day">День</string>
+    <string name="month">Месяц</string>
 </resources>

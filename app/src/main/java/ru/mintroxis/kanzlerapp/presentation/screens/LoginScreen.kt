@@ -8,12 +8,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
@@ -38,7 +34,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.booleanResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -55,6 +50,7 @@ import com.owlbuddy.www.countrycodechooser.utils.enums.CountryCodeType
 import ru.mintroxis.kanzlerapp.R
 import ru.mintroxis.kanzlerapp.presentation.components.BrightButton
 import ru.mintroxis.kanzlerapp.presentation.components.InfoIconButton
+import ru.mintroxis.kanzlerapp.presentation.components.MainScaffold
 import ru.mintroxis.kanzlerapp.presentation.utils.NanpVisualTransformation
 import ru.mintroxis.kanzlerapp.presentation.utils.authTextFieldArgs
 import ru.mintroxis.kanzlerapp.ui.theme.AlternativeWhite
@@ -70,28 +66,13 @@ fun LoginScreen() {
         contentAlignment = Alignment.Center
     ) {
         BackgroundImage()
-        Scaffold(
-            modifier = Modifier
-                .safeDrawingPadding()
-                .fillMaxSize(),
-            containerColor = Color.Transparent
-        ) { innerPadding ->
-            Column(
-                modifier = Modifier
-                    .padding(innerPadding)
-                    .fillMaxSize()
-                    .verticalScroll(rememberScrollState()),
-
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Top
-            ) {
-                HeaderSection()
-                Spacer(modifier = Modifier.weight(1f))
-                InputSection()
-                Spacer(modifier = Modifier.weight(1f))
-                FooterSection()
-                Spacer(modifier = Modifier.weight(0.25f))
-            }
+        MainScaffold {
+            HeaderSection()
+            Spacer(modifier = Modifier.weight(1f))
+            InputSection()
+            Spacer(modifier = Modifier.weight(1f))
+            FooterSection()
+            Spacer(modifier = Modifier.weight(0.25f))
         }
     }
 
@@ -101,10 +82,8 @@ fun LoginScreen() {
 private fun BackgroundImage() {
     Image(
         modifier = Modifier.fillMaxSize(),
-
         painter = painterResource(id = R.drawable.pen_background),
         contentDescription = "pen_background",
-
         contentScale = ContentScale.Crop
     )
 }
@@ -112,8 +91,9 @@ private fun BackgroundImage() {
 @Composable
 private fun FooterSection() {
     Column(
-        modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
-
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(6.dp)
     ) {
@@ -128,9 +108,7 @@ private fun RegButton() {
         modifier = Modifier.size(
             width = 332.dp, height = 40.dp
         ),
-
         onClick = { /*TODO*/ },
-
         border = BorderStroke(width = 2.dp, color = DeepRed),
         colors = ButtonDefaults.buttonColors(containerColor = AlternativeWhite),
         elevation = ButtonDefaults.buttonElevation(4.dp)
@@ -148,15 +126,16 @@ private fun RegButton() {
 @Composable
 private fun InputSection() {
     Column(
-        modifier = Modifier.fillMaxWidth().padding(bottom = 32.dp),
-
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 32.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         PhoneNumberTextField()
         PasswordTextField()
         PasswordInfoText()
-        BrightButton(text = stringResource(id = R.string.authorisation), action = { /*TODO*/ })
+        BrightButton(text = stringResource(id = R.string.authorisation), onClick = { /*TODO*/ })
         ForgetPasswordButton()
     }
 }
@@ -164,8 +143,9 @@ private fun InputSection() {
 @Composable
 private fun HeaderSection() {
     Column(
-        modifier = Modifier.fillMaxWidth().padding(bottom = 32.dp),
-
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 32.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
@@ -184,9 +164,7 @@ private fun QuestionText() {
 
 @Composable
 private fun ForgetPasswordButton() {
-    TextButton(modifier = Modifier.padding(top = 6.dp),
-
-        onClick = { /*TODO*/ }) {
+    TextButton(modifier = Modifier.padding(top = 6.dp), onClick = { /*TODO*/ }) {
         Text(
             modifier = Modifier,
 
@@ -204,7 +182,6 @@ private fun ForgetPasswordButton() {
 private fun PasswordInfoText() {
     Text(
         modifier = Modifier,
-
         text = stringResource(id = R.string.password_info),
         fontSize = 13.sp,
         textAlign = TextAlign.Center,
@@ -230,7 +207,6 @@ private fun PhoneNumberTextField() {
 
     TextField(
         modifier = Modifier.authTextFieldArgs(),
-
         value = phoneNumber,
         onValueChange = {
             val stripped = numericRegex.replace(it, "")
@@ -240,7 +216,6 @@ private fun PhoneNumberTextField() {
                 stripped
             }
         },
-
         colors = textFieldColorsForAuthTextField(),
         shape = RoundedCornerShape(14.dp),
         visualTransformation = NanpVisualTransformation(),
@@ -266,9 +241,7 @@ private fun PhoneNumberTextField() {
                     })
                 Text(
                     modifier = Modifier.padding(start = 6.dp),
-
                     text = "+$countryCode",
-
                     fontFamily = rubikFamily,
                     fontSize = 17.sp,
                     fontWeight = FontWeight.SemiBold,
@@ -285,15 +258,12 @@ private fun PasswordTextField() {
 
     TextField(
         modifier = Modifier.authTextFieldArgs(),
-
         value = password,
         onValueChange = { password = it },
-
         colors = textFieldColorsForAuthTextField(),
         label = {
             Text(
                 modifier = Modifier.fillMaxWidth(),
-
                 text = stringResource(id = R.string.password),
                 textAlign = TextAlign.Center,
             )
@@ -312,7 +282,6 @@ private fun PasswordTextField() {
 private fun LogoImage() {
     Image(
         modifier = Modifier.size(width = 320.dp, height = 150.dp),
-
         painter = painterResource(id = R.drawable.logo),
         contentDescription = stringResource(id = R.string.logo_description)
     )
@@ -321,9 +290,7 @@ private fun LogoImage() {
 @Composable
 private fun InfoIconBox() {
     Box(
-        modifier = Modifier.fillMaxWidth(),
-
-        contentAlignment = Alignment.CenterEnd
+        modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterEnd
     ) {
         InfoIconButton()
     }

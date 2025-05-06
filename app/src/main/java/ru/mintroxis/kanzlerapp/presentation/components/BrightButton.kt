@@ -9,18 +9,19 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.mintroxis.kanzlerapp.ui.theme.DeepRed
 
 @Composable
-fun BrightButton(text: String, action: () -> Unit) {
+fun BrightButton(text: String, onClick: () -> Unit) {
     Button(
         modifier = Modifier
             .padding(top = 6.dp)
             .size(width = 332.dp, height = 60.dp),
 
-        onClick = action,
+        onClick = onClick,
 
         elevation = ButtonDefaults.buttonElevation(defaultElevation = 8.dp),
         shape = RoundedCornerShape(14.dp),
@@ -34,4 +35,10 @@ fun BrightButton(text: String, action: () -> Unit) {
             fontSize = 17.sp,
         )
     }
+}
+
+@Preview
+@Composable
+private fun PreviewBrightButton() {
+    BrightButton("Text") {}
 }
