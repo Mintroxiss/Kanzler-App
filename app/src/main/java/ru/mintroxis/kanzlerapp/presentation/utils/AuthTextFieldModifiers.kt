@@ -7,21 +7,21 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import ru.mintroxis.kanzlerapp.ui.theme.DeepRed
-import ru.mintroxis.kanzlerapp.ui.theme.Dimensions
 
 @SuppressLint("ModifierFactoryUnreferencedReceiver")
 fun Modifier.authTextFieldArgs(): Modifier {
     return this
-        .size(width = Dimensions.textFieldWidth, height = Dimensions.textFieldHeight)
+        .size(width = 332.dp, height = 60.dp)
         .border(
-            width = Dimensions.borderHeightOfTextField,
+            width = 1.dp,
             color = DeepRed,
-            shape = RoundedCornerShape(Dimensions.textFieldShape)
+            shape = RoundedCornerShape(14.dp)
         )
         .shadow(
-            elevation = Dimensions.textFieldElevation,
-            shape = RoundedCornerShape(Dimensions.textFieldShape),
+            elevation = 8.dp,
+            shape = RoundedCornerShape(14.dp),
             ambientColor = Color.Black,
             clip = true
         )

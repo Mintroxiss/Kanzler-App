@@ -9,7 +9,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.tooling.preview.Preview
-import ru.mintroxis.kanzlerapp.presentation.components.ContentColumn
 import ru.mintroxis.kanzlerapp.ui.theme.TranspRed
 import ru.mintroxis.kanzlerapp.ui.theme.White
 
@@ -23,9 +22,7 @@ fun RegistrationScreen() {
         contentAlignment = Alignment.Center
     ) {
         BackgroundImage()
-        ContentColumn {
-            InputSection()
-        }
+
     }
 }
 

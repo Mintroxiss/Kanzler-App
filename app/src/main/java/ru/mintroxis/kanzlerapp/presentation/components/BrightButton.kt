@@ -9,21 +9,21 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.mintroxis.kanzlerapp.ui.theme.DeepRed
-import ru.mintroxis.kanzlerapp.ui.theme.Dimensions
 
 @Composable
 fun BrightButton(text: String, action: () -> Unit) {
     Button(
         modifier = Modifier
-            .padding(top = Dimensions.microPadding)
-            .size(width = Dimensions.baseButtonWidth, height = Dimensions.baseButtonHeight),
+            .padding(top = 6.dp)
+            .size(width = 332.dp, height = 60.dp),
 
         onClick = action,
 
-        elevation = ButtonDefaults.buttonElevation(defaultElevation = Dimensions.baseButtonElevation),
-        shape = RoundedCornerShape(Dimensions.baseButtonShape),
+        elevation = ButtonDefaults.buttonElevation(defaultElevation = 8.dp),
+        shape = RoundedCornerShape(14.dp),
         colors = ButtonDefaults.buttonColors(containerColor = DeepRed)
     ) {
         Text(

@@ -9,15 +9,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import ru.mintroxis.kanzlerapp.R
-import ru.mintroxis.kanzlerapp.ui.theme.Dimensions
 
 @Composable
 fun InfoIconButton() {
     IconButton(
         modifier = Modifier
-            .padding(end = Dimensions.microPadding)
-            .size(Dimensions.infoIconSize),
+            .padding(end = 6.dp)
+            .size(36.dp),
 
         onClick = { /*TODO*/ },
         content = {

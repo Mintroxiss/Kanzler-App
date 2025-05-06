@@ -41,7 +41,7 @@ android {
 
 dependencies {
 
-    implementation("com.github.ParveshSandila:CountryCodeChooser:1.0.2")
+    implementation(libs.countrycodechooser)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

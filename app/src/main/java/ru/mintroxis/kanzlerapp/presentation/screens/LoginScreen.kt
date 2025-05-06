@@ -7,14 +7,23 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
@@ -29,6 +38,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.booleanResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -40,22 +50,18 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import ru.mintroxis.kanzlerapp.R
 import com.owlbuddy.www.countrycodechooser.CountryCodeChooser
 import com.owlbuddy.www.countrycodechooser.utils.enums.CountryCodeType
+import ru.mintroxis.kanzlerapp.R
 import ru.mintroxis.kanzlerapp.presentation.components.BrightButton
-import ru.mintroxis.kanzlerapp.presentation.components.ContentColumn
 import ru.mintroxis.kanzlerapp.presentation.components.InfoIconButton
 import ru.mintroxis.kanzlerapp.presentation.utils.NanpVisualTransformation
 import ru.mintroxis.kanzlerapp.presentation.utils.authTextFieldArgs
-import ru.mintroxis.kanzlerapp.presentation.utils.getScreenHeight
 import ru.mintroxis.kanzlerapp.ui.theme.AlternativeWhite
 import ru.mintroxis.kanzlerapp.ui.theme.DeepRed
-import ru.mintroxis.kanzlerapp.ui.theme.Dimensions
-import ru.mintroxis.kanzlerapp.ui.theme.KanzlerAppTheme
 import ru.mintroxis.kanzlerapp.ui.theme.rubikFamily
 
-
+@Preview
 @Composable
 fun LoginScreen() {
     Box(
@@ -64,12 +70,31 @@ fun LoginScreen() {
         contentAlignment = Alignment.Center
     ) {
         BackgroundImage()
-        ContentColumn {
-            HeaderSection()
-            InputSection()
-            FooterSection()
+        Scaffold(
+            modifier = Modifier
+                .safeDrawingPadding()
+                .fillMaxSize(),
+            containerColor = Color.Transparent
+        ) { innerPadding ->
+            Column(
+                modifier = Modifier
+                    .padding(innerPadding)
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState()),
+
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Top
+            ) {
+                HeaderSection()
+                Spacer(modifier = Modifier.weight(1f))
+                InputSection()
+                Spacer(modifier = Modifier.weight(1f))
+                FooterSection()
+                Spacer(modifier = Modifier.weight(0.25f))
+            }
         }
     }
+
 }
 
 @Composable
@@ -87,12 +112,12 @@ private fun BackgroundImage() {
 @Composable
 private fun FooterSection() {
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
 
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(Dimensions.microSpacing)
+        verticalArrangement = Arrangement.spacedBy(6.dp)
     ) {
-        if (getScreenHeight() > 650) QuestionText()
+        QuestionText()
         RegButton()
     }
 }
@@ -101,14 +126,14 @@ private fun FooterSection() {
 private fun RegButton() {
     OutlinedButton(
         modifier = Modifier.size(
-            width = Dimensions.regButtonWidth, height = Dimensions.regButtonHeight
+            width = 332.dp, height = 40.dp
         ),
 
         onClick = { /*TODO*/ },
 
         border = BorderStroke(width = 2.dp, color = DeepRed),
         colors = ButtonDefaults.buttonColors(containerColor = AlternativeWhite),
-        elevation = ButtonDefaults.buttonElevation(Dimensions.baseButtonElevation)
+        elevation = ButtonDefaults.buttonElevation(4.dp)
     ) {
         Text(
             modifier = Modifier,
@@ -123,10 +148,10 @@ private fun RegButton() {
 @Composable
 private fun InputSection() {
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().padding(bottom = 32.dp),
 
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(Dimensions.smallSpacing)
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         PhoneNumberTextField()
         PasswordTextField()
@@ -139,10 +164,10 @@ private fun InputSection() {
 @Composable
 private fun HeaderSection() {
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().padding(bottom = 32.dp),
 
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(Dimensions.smallSpacing)
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         InfoIconBox()
         LogoImage()
@@ -152,8 +177,6 @@ private fun HeaderSection() {
 @Composable
 private fun QuestionText() {
     Text(
-        modifier = Modifier.size(width = 90.dp, height = 22.dp),
-
         text = stringResource(id = R.string.first_session),
         fontSize = 13.sp,
     )
@@ -161,7 +184,7 @@ private fun QuestionText() {
 
 @Composable
 private fun ForgetPasswordButton() {
-    TextButton(modifier = Modifier.padding(top = Dimensions.microPadding),
+    TextButton(modifier = Modifier.padding(top = 6.dp),
 
         onClick = { /*TODO*/ }) {
         Text(
@@ -188,7 +211,6 @@ private fun PasswordInfoText() {
         lineHeight = 13.sp,
     )
 }
-
 
 @Composable
 private fun textFieldColorsForAuthTextField(): TextFieldColors = TextFieldDefaults.colors(
@@ -220,7 +242,7 @@ private fun PhoneNumberTextField() {
         },
 
         colors = textFieldColorsForAuthTextField(),
-        shape = RoundedCornerShape(Dimensions.textFieldShape),
+        shape = RoundedCornerShape(14.dp),
         visualTransformation = NanpVisualTransformation(),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
         textStyle = TextStyle(
@@ -230,22 +252,20 @@ private fun PhoneNumberTextField() {
         leadingIcon = {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 CountryCodeChooser(modifier = Modifier
-                    .size(Dimensions.textFieldHeight)
+                    .size(60.dp)
                     .border(
-                        width = Dimensions.borderHeightOfTextField,
-                        shape = RoundedCornerShape(Dimensions.textFieldShape),
-                        color = DeepRed
+                        width = 1.dp, shape = RoundedCornerShape(14.dp), color = DeepRed
                     ),
                     textStyle = TextStyle(
                         fontFamily = rubikFamily, fontSize = 17.sp, fontWeight = FontWeight.Normal
                     ),
                     defaultCountry = "KG",
                     countryCodeType = CountryCodeType.FLAG,
-                    onCountySelected = { countryCodeWithoutPrefix, iso2Code, iso3Code ->
+                    onCountySelected = { countryCodeWithoutPrefix, _, _ ->
                         countryCode = countryCodeWithoutPrefix
                     })
                 Text(
-                    modifier = Modifier.padding(start = Dimensions.microPadding),
+                    modifier = Modifier.padding(start = 6.dp),
 
                     text = "+$countryCode",
 
@@ -278,7 +298,7 @@ private fun PasswordTextField() {
                 textAlign = TextAlign.Center,
             )
         },
-        shape = RoundedCornerShape(Dimensions.textFieldShape),
+        shape = RoundedCornerShape(14.dp),
         visualTransformation = PasswordVisualTransformation(),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         textStyle = TextStyle(
@@ -309,10 +329,3 @@ private fun InfoIconBox() {
     }
 }
 
-@Preview
-@Composable
-private fun PreviewLoginScreen() {
-    KanzlerAppTheme {
-        LoginScreen()
-    }
-}
