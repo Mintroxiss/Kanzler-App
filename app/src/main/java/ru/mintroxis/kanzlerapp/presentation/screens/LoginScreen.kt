@@ -11,15 +11,11 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
@@ -68,10 +64,15 @@ fun LoginScreen() {
         BackgroundImage()
         MainScaffold {
             HeaderSection()
+
             Spacer(modifier = Modifier.weight(1f))
+
             InputSection()
+
             Spacer(modifier = Modifier.weight(1f))
+
             FooterSection()
+
             Spacer(modifier = Modifier.weight(0.25f))
         }
     }
@@ -83,7 +84,7 @@ private fun BackgroundImage() {
     Image(
         modifier = Modifier.fillMaxSize(),
         painter = painterResource(id = R.drawable.pen_background),
-        contentDescription = "pen_background",
+        contentDescription = stringResource(R.string.background_with_pen),
         contentScale = ContentScale.Crop
     )
 }
@@ -98,6 +99,7 @@ private fun FooterSection() {
         verticalArrangement = Arrangement.spacedBy(6.dp)
     ) {
         QuestionText()
+
         RegButton()
     }
 }
@@ -133,9 +135,13 @@ private fun InputSection() {
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         PhoneNumberTextField()
+
         PasswordTextField()
+
         PasswordInfoText()
+
         BrightButton(text = stringResource(id = R.string.authorisation), onClick = { /*TODO*/ })
+
         ForgetPasswordButton()
     }
 }
@@ -150,6 +156,7 @@ private fun HeaderSection() {
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         InfoIconBox()
+
         LogoImage()
     }
 }
@@ -239,6 +246,7 @@ private fun PhoneNumberTextField() {
                     onCountySelected = { countryCodeWithoutPrefix, _, _ ->
                         countryCode = countryCodeWithoutPrefix
                     })
+
                 Text(
                     modifier = Modifier.padding(start = 6.dp),
                     text = "+$countryCode",

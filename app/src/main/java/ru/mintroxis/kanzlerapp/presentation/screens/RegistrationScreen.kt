@@ -1,28 +1,39 @@
 package ru.mintroxis.kanzlerapp.presentation.screens
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.RadioButton
+import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldColors
@@ -34,19 +45,28 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.owlbuddy.www.countrycodechooser.CountryCodeChooser
 import com.owlbuddy.www.countrycodechooser.utils.enums.CountryCodeType
 import ru.mintroxis.kanzlerapp.R
+import ru.mintroxis.kanzlerapp.presentation.components.BrightButton
 import ru.mintroxis.kanzlerapp.presentation.components.MainScaffold
 import ru.mintroxis.kanzlerapp.presentation.utils.NanpVisualTransformation
 import ru.mintroxis.kanzlerapp.ui.theme.AlternativeWhite
@@ -62,14 +82,151 @@ fun RegistrationScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(White), contentAlignment = Alignment.Center
+            .background(White),
+        contentAlignment = Alignment.Center
     ) {
         BackgroundImage()
+
         MainScaffold {
+            HeaderSection()
+
+            Spacer(modifier = Modifier.height(10.dp))
+
             InputSection()
+
+            Spacer(modifier = Modifier.height(35.dp))
+
             SelectionSection()
+
+            Spacer(modifier = Modifier.height(35.dp))
+
+            NextSection()
+
+            Spacer(modifier = Modifier.height(35.dp))
         }
     }
+}
+
+@Composable
+private fun HeaderSection() {
+    Box(modifier = Modifier
+        .fillMaxWidth()
+        .height(60.dp)
+        .padding(start = 18.dp, end = 18.dp)) {
+        IconButton(
+            modifier = Modifier
+                .size(36.dp)
+                .align(Alignment.BottomStart),
+
+            onClick = { /*TODO*/ },
+            content = {
+                Image(
+                    modifier = Modifier.fillMaxSize(),
+
+                    painter = painterResource(id = R.drawable.go_back_icon),
+                    contentDescription = stringResource(R.string.go_back),
+                )
+            }
+        )
+
+        Text(
+            modifier = Modifier.align(Alignment.TopCenter),
+            text = stringResource(R.string.registration),
+            fontFamily = rubikFamily,
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold
+        )
+    }
+}
+
+@Composable
+private fun NextSection() {
+    var loyaltyProgram by remember { mutableStateOf(false) }
+    var personalData by remember { mutableStateOf(false) }
+    var messages by remember { mutableStateOf(false) }
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 30.dp, end = 30.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        AcceptCheckbox(
+            simpleText = stringResource(R.string.i_agree_with_the_rules),
+            linkText = stringResource(R.string.of_the_loyalty_program),
+            link = stringResource(R.string.loyalty_program_link), // TODO
+            checked = loyaltyProgram,
+            onCheckedChange = { loyaltyProgram = !loyaltyProgram }
+        )
+
+        AcceptCheckbox(
+            simpleText = stringResource(R.string.i_give_my_consent_to),
+            linkText = stringResource(R.string.the_processing_of_personal_data),
+            link = stringResource(R.string.personal_data_link), // TODO
+            checked = personalData,
+            onCheckedChange = { personalData = !personalData }
+        )
+
+        AcceptCheckbox(
+            simpleText = "Хочу получать SMS-рассылку",
+            checked = messages,
+            onCheckedChange = { messages = !messages }
+        )
+
+        BrightButton(stringResource(R.string.next)) { }
+    }
+}
+
+@Composable
+private fun AcceptCheckbox(
+    simpleText: String,
+    linkText: String = "",
+    link: String = "",
+    checked: Boolean,
+    onCheckedChange: ((Boolean) -> Unit)?
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Checkbox(
+            checked = checked, onCheckedChange = onCheckedChange, colors = CheckboxDefaults.colors(
+                checkedColor = DeepRed,
+                uncheckedColor = DeepRed,
+                checkmarkColor = White,
+            )
+        )
+
+        val annotatedText = buildAnnotatedString {
+            append(simpleText)
+
+            pushStringAnnotation(tag = "URL", annotation = link)
+            withStyle(
+                style = SpanStyle(
+                    color = DeepRed,
+                    textDecoration = TextDecoration.Underline
+                )
+            ) {
+                append(linkText)
+            }
+        }
+
+        val uriHandler = LocalUriHandler.current
+        ClickableText(
+            text = annotatedText,
+            style = TextStyle(
+                fontFamily = rubikFamily,
+                fontSize = 14.sp
+            ),
+            onClick = { offset ->
+                annotatedText.getStringAnnotations(tag = "URL", start = offset, end = offset)
+                    .firstOrNull()?.let { annotation ->
+                        uriHandler.openUri(annotation.item)
+                    }
+            }
+        )
+    }
+
 }
 
 @Composable
@@ -77,11 +234,95 @@ private fun SelectionSection() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(start = 30.dp, end = 30.dp)
+            .padding(start = 30.dp, end = 30.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         SetBirthday()
+        Spacer(modifier = Modifier.height(15.dp))
+        SetGender()
     }
 }
+
+enum class Gender {
+    MALE, FEMALE
+}
+
+@Composable
+private fun SetGender() {
+    var selectedGender by remember { mutableStateOf<Gender?>(null) }
+
+    SubtitleText(stringResource(R.string.gender))
+
+    Spacer(modifier = Modifier.height(14.dp))
+
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceAround
+    ) {
+        GenderOption(
+            text = stringResource(R.string.male),
+            icon = ImageVector.vectorResource(id = R.drawable.male_icon),
+            selected = selectedGender == Gender.MALE,
+            contentDescription = stringResource(R.string.man_icon),
+        ) {
+            selectedGender = Gender.MALE
+        }
+
+        GenderOption(
+            text = stringResource(R.string.female),
+            icon = ImageVector.vectorResource(id = R.drawable.female_icon),
+            selected = selectedGender == Gender.FEMALE,
+            contentDescription = stringResource(R.string.icon_with_woman),
+        ) {
+            selectedGender = Gender.FEMALE
+        }
+    }
+}
+
+
+@Composable
+fun GenderOption(
+    text: String,
+    icon: ImageVector,
+    selected: Boolean,
+    contentDescription: String,
+    onSelect: () -> Unit,
+) {
+    Box(
+        modifier = Modifier
+            .border(
+                width = 1.dp,
+                color = Color.Red,
+                shape = RoundedCornerShape(12.dp)
+            )
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = null
+            ) { onSelect() }
+            .background(if (selected) AlternativeWhite else White)
+            .padding(horizontal = 12.dp, vertical = 8.dp),
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            RadioButton(
+                modifier = Modifier.scale(0.6f),
+                selected = selected,
+                onClick = null,
+                colors = RadioButtonDefaults.colors(
+                    selectedColor = DeepRed,
+                    unselectedColor = Color.Black
+                )
+            )
+
+            Text(text = text, fontSize = 14.sp)
+
+            Icon(modifier = Modifier.size(28.dp), imageVector = icon, contentDescription = contentDescription)
+        }
+    }
+}
+
 
 @Composable
 private fun SetBirthday() {
@@ -90,27 +331,37 @@ private fun SetBirthday() {
             .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            text = stringResource(R.string.date_of_birth),
-            fontFamily = rubikFamily,
-            fontWeight = FontWeight.Normal,
-            fontSize = 17.sp
-        )
+        SubtitleText(stringResource(R.string.date_of_birth))
+
+        Spacer(modifier = Modifier.height(14.dp))
+
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             ChooseDayOfBirth()
+
             ChooseMonthOfBirth()
+
             ChooseYearOfBirth()
         }
     }
 }
 
 @Composable
+private fun SubtitleText(text: String) {
+    Text(
+        text = text,
+        fontFamily = rubikFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 17.sp,
+    )
+}
+
+@Composable
 private fun ChooseYearOfBirth() {
     val years = (2025 downTo 1925).toList().map { it.toString() }
-    val startText = "Год"
+    val startText = stringResource(R.string.year)
     var selectedText by remember { mutableStateOf(startText) }
 
     CustomDropdown(
@@ -175,21 +426,19 @@ private fun CustomDropdown(
                 readOnly = true,
                 singleLine = true,
                 colors = TextFieldDefaults.colors(
-                    unfocusedContainerColor = AlternativeWhite,
+                    unfocusedContainerColor = White,
                     focusedContainerColor = AlternativeWhite,
                     unfocusedIndicatorColor = Color.Transparent,
                     focusedIndicatorColor = Color.Transparent,
-                    unfocusedTextColor = Grey,
-                    focusedTextColor = Color.Black,
                 ),
                 shape = RoundedCornerShape(14.dp),
                 textStyle = TextStyle(
-                    textAlign = TextAlign.Center,
                     fontSize = 14.sp,
                     fontFamily = rubikFamily,
                     fontWeight = FontWeight.Normal,
                 ),
             )
+
             ExposedDropdownMenu(
                 modifier = Modifier
                     .verticalScroll(rememberScrollState())
@@ -216,6 +465,7 @@ private fun CustomDropdown(
                 }
             }
         }
+
         Icon(
             imageVector = if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
             contentDescription = null,
@@ -227,7 +477,6 @@ private fun CustomDropdown(
     }
 }
 
-
 @Composable
 private fun InputSection() {
     Column(
@@ -237,7 +486,9 @@ private fun InputSection() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         NumberInputTextField()
+
         NameInputTextField()
+
         SurnameInputTextField()
     }
 }
@@ -257,7 +508,12 @@ private fun NameInputTextField() {
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
         singleLine = true,
         label = {
-            Text(text = stringResource(R.string.name))
+            Text(
+                text = stringResource(R.string.name),
+                fontFamily = rubikFamily,
+                fontWeight = FontWeight.Normal,
+                fontSize = 17.sp,
+            )
         },
     )
 }
@@ -277,7 +533,12 @@ private fun SurnameInputTextField() {
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
         singleLine = true,
         label = {
-            Text(text = stringResource(R.string.surname))
+            Text(
+                text = stringResource(R.string.surname),
+                fontFamily = rubikFamily,
+                fontWeight = FontWeight.Normal,
+                fontSize = 17.sp,
+            )
         },
     )
 }
@@ -315,6 +576,7 @@ fun NumberInputTextField() {
                         countryCode = countryCodeWithoutPrefix
                     }
                 )
+
                 Text(
                     modifier = Modifier.padding(start = 3.dp),
                     text = "+$countryCode",
@@ -341,7 +603,6 @@ private fun textFieldColors(): TextFieldColors = TextFieldDefaults.colors(
     focusedLabelColor = DeepRed,
     unfocusedLabelColor = Grey,
 )
-
 
 @Composable
 private fun BackgroundImage() {

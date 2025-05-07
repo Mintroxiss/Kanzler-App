@@ -7,7 +7,7 @@
     <string name="forget_password">Не помню пароль</string>
     <string name="first_session">Впервые у нас?</string>
     <string name="wing_description">Kyrgyzstan Wing</string>
-    <string name="logo_description">Kanzler logo</string>
+    <string name="logo_description">Логотип Канцлер</string>
     <string name="info_icon_description">Info Icon</string>
     <string name="reg_button">Зарегистрироваться</string>
     <string name="name">Имя</string>
@@ -15,4 +15,20 @@
     <string name="date_of_birth">Дата рождения</string>
     <string name="day">День</string>
     <string name="month">Месяц</string>
+    <string name="gender">Пол</string>
+    <string name="male">Мужской</string>
+    <string name="female">Женский</string>
+    <string name="year">Год</string>
+    <string name="i_agree_with_the_rules">"Соглашаюсь с правилами "</string>
+    <string name="of_the_loyalty_program">программы лояльности</string>
+    <string name="i_give_my_consent_to">"Даю согласие на  "</string>
+    <string name="the_processing_of_personal_data">обработку персональных данных</string>
+    <string name="loyalty_program_link">https://что-нибудь надо вписать</string>
+    <string name="personal_data_link">https://ещё что-нибудь надо вписать</string>
+    <string name="next">Далее</string>
+    <string name="registration">Регистрация</string>
+    <string name="background_with_pen">Фон с ручкой</string>
+    <string name="go_back">Назад</string>
+    <string name="man_icon">Иконка с мужчиной</string>
+    <string name="icon_with_woman">Иконка с женщиной</string>
 </resources>
