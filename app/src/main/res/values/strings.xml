@@ -31,4 +31,6 @@
     <string name="go_back">Назад</string>
     <string name="man_icon">Иконка с мужчиной</string>
     <string name="icon_with_woman">Иконка с женщиной</string>
+    <string name="background_with_marker_and_glue">Фон с маркером и клеем</string>
+    <string name="password_recover">Восстановление пароля</string>
 </resources>

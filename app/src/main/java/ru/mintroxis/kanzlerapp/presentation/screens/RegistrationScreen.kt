@@ -66,6 +66,7 @@ import androidx.compose.ui.unit.sp
 import com.owlbuddy.www.countrycodechooser.CountryCodeChooser
 import com.owlbuddy.www.countrycodechooser.utils.enums.CountryCodeType
 import ru.mintroxis.kanzlerapp.R
+import ru.mintroxis.kanzlerapp.presentation.components.BackIconButton
 import ru.mintroxis.kanzlerapp.presentation.components.BrightButton
 import ru.mintroxis.kanzlerapp.presentation.components.MainScaffold
 import ru.mintroxis.kanzlerapp.presentation.utils.NanpVisualTransformation
@@ -113,21 +114,7 @@ private fun HeaderSection() {
         .fillMaxWidth()
         .height(60.dp)
         .padding(start = 18.dp, end = 18.dp)) {
-        IconButton(
-            modifier = Modifier
-                .size(36.dp)
-                .align(Alignment.BottomStart),
-
-            onClick = { /*TODO*/ },
-            content = {
-                Image(
-                    modifier = Modifier.fillMaxSize(),
-
-                    painter = painterResource(id = R.drawable.go_back_icon),
-                    contentDescription = stringResource(R.string.go_back),
-                )
-            }
-        )
+        BackIconButton()
 
         Text(
             modifier = Modifier.align(Alignment.TopCenter),
@@ -281,7 +268,7 @@ private fun SetGender() {
 
 
 @Composable
-fun GenderOption(
+private fun GenderOption(
     text: String,
     icon: ImageVector,
     selected: Boolean,
@@ -544,7 +531,7 @@ private fun SurnameInputTextField() {
 }
 
 @Composable
-fun NumberInputTextField() {
+private fun NumberInputTextField() {
     var phoneNumber by remember { mutableStateOf("") }
     var countryCode by remember { mutableStateOf("996") }
     val numericRegex = Regex("[^0-9]")
