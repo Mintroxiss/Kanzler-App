@@ -33,4 +33,8 @@
     <string name="icon_with_woman">Иконка с женщиной</string>
     <string name="background_with_marker_and_glue">Фон с маркером и клеем</string>
     <string name="password_recover">Восстановление пароля</string>
+    <string name="enter_the_code">Введите код</string>
+    <string name="enter_the_code_from_sms">Введите код из SMS-сообщения</string>
+    <string name="confirm">Подтвердить</string>
+    <string name="resend">Отправить повторно</string>
 </resources>

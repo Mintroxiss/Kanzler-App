@@ -1,7 +1,6 @@
 package ru.mintroxis.kanzlerapp.presentation.screens
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -31,7 +30,6 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
@@ -50,7 +48,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalUriHandler
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.SpanStyle
@@ -86,7 +83,15 @@ fun RegistrationScreen() {
             .background(White),
         contentAlignment = Alignment.Center
     ) {
-        BackgroundImage()
+        Canvas(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            drawCircle(
+                color = TranspRed,
+                radius = size.width * 0.3f,
+                center = Offset(size.width * 0.9f, size.height * 0.2f)
+            )
+        }
 
         MainScaffold {
             HeaderSection()
@@ -110,11 +115,13 @@ fun RegistrationScreen() {
 
 @Composable
 private fun HeaderSection() {
-    Box(modifier = Modifier
-        .fillMaxWidth()
-        .height(60.dp)
-        .padding(start = 18.dp, end = 18.dp)) {
-        BackIconButton()
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(60.dp)
+            .padding(start = 18.dp, end = 18.dp)
+    ) {
+        BackIconButton { /*TODO()*/ }
 
         Text(
             modifier = Modifier.align(Alignment.TopCenter),
@@ -305,7 +312,11 @@ private fun GenderOption(
 
             Text(text = text, fontSize = 14.sp)
 
-            Icon(modifier = Modifier.size(28.dp), imageVector = icon, contentDescription = contentDescription)
+            Icon(
+                modifier = Modifier.size(28.dp),
+                imageVector = icon,
+                contentDescription = contentDescription
+            )
         }
     }
 }
@@ -591,15 +602,3 @@ private fun textFieldColors(): TextFieldColors = TextFieldDefaults.colors(
     unfocusedLabelColor = Grey,
 )
 
-@Composable
-private fun BackgroundImage() {
-    Canvas(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        drawCircle(
-            color = TranspRed,
-            radius = size.width * 0.3f,
-            center = Offset(size.width * 0.9f, size.height * 0.2f)
-        )
-    }
-}

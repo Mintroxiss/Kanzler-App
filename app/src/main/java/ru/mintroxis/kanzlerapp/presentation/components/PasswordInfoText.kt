@@ -8,6 +8,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import ru.mintroxis.kanzlerapp.R
+import ru.mintroxis.kanzlerapp.ui.theme.rubikFamily
 
 @Preview
 @Composable
@@ -18,5 +19,6 @@ fun PasswordInfoText() {
         fontSize = 13.sp,
         textAlign = TextAlign.Center,
         lineHeight = 13.sp,
+        fontFamily = rubikFamily
     )
 }

@@ -35,6 +35,7 @@ import ru.mintroxis.kanzlerapp.presentation.components.PasswordTextField
 import ru.mintroxis.kanzlerapp.presentation.components.PhoneNumberTextField
 import ru.mintroxis.kanzlerapp.ui.theme.AlternativeWhite
 import ru.mintroxis.kanzlerapp.ui.theme.DeepRed
+import ru.mintroxis.kanzlerapp.ui.theme.rubikFamily
 
 @Preview
 @Composable
@@ -44,7 +45,13 @@ fun LoginScreen() {
 
         contentAlignment = Alignment.Center
     ) {
-        BackgroundImage()
+        Image(
+            modifier = Modifier.fillMaxSize(),
+            painter = painterResource(id = R.drawable.pen_background),
+            contentDescription = stringResource(R.string.background_with_pen),
+            contentScale = ContentScale.Crop
+        )
+
         MainScaffold {
             HeaderSection()
 
@@ -60,16 +67,6 @@ fun LoginScreen() {
         }
     }
 
-}
-
-@Composable
-private fun BackgroundImage() {
-    Image(
-        modifier = Modifier.fillMaxSize(),
-        painter = painterResource(id = R.drawable.pen_background),
-        contentDescription = stringResource(R.string.background_with_pen),
-        contentScale = ContentScale.Crop
-    )
 }
 
 @Composable
@@ -104,6 +101,7 @@ private fun RegButton() {
             text = stringResource(id = R.string.reg_button),
             color = Color.Black,
             fontSize = 17.sp,
+            fontFamily = rubikFamily
         )
     }
 }
@@ -149,6 +147,7 @@ private fun QuestionText() {
     Text(
         text = stringResource(id = R.string.first_session),
         fontSize = 13.sp,
+        fontFamily = rubikFamily
     )
 }
 
@@ -161,7 +160,8 @@ private fun ForgetPasswordButton() {
             text = stringResource(id = R.string.forget_password),
             color = DeepRed,
             fontSize = 17.sp,
-            textDecoration = TextDecoration.Underline
+            textDecoration = TextDecoration.Underline,
+            fontFamily = rubikFamily
         )
     }
 
@@ -174,7 +174,7 @@ private fun InfoIconBox() {
     Box(
         modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterEnd
     ) {
-        InfoIconButton(Modifier.padding(end = 6.dp))
+        InfoIconButton(Modifier.padding(end = 6.dp)) {TODO()}
     }
 }
 

@@ -13,11 +13,11 @@ import androidx.compose.ui.unit.dp
 import ru.mintroxis.kanzlerapp.R
 
 @Composable
-fun InfoIconButton(modifier: Modifier) {
+fun InfoIconButton(modifier: Modifier, onClick: () -> Unit) {
     IconButton(
         modifier = modifier.size(36.dp),
 
-        onClick = { /*TODO*/ },
+        onClick = onClick,
         content = {
             Image(
                 modifier = Modifier.fillMaxSize(),
@@ -32,5 +32,5 @@ fun InfoIconButton(modifier: Modifier) {
 @Preview
 @Composable
 private fun PreviewInfoIconButton() {
-    InfoIconButton(Modifier)
+    InfoIconButton(Modifier) {}
 }

@@ -34,7 +34,13 @@ import ru.mintroxis.kanzlerapp.ui.theme.rubikFamily
 @Composable
 fun RecoverScreen() {
     Box(modifier = Modifier.fillMaxSize()) {
-        BackgroundImage()
+        Image(
+            modifier = Modifier.fillMaxSize(),
+            painter = painterResource(id = R.drawable.recover_background),
+            contentDescription = stringResource(R.string.background_with_marker_and_glue),
+            contentScale = ContentScale.Crop
+        )
+
         MainScaffold {
             HeaderSection()
             AuthSection()
@@ -51,7 +57,6 @@ private fun HeaderSection() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-//        InfoIconBox()
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -66,9 +71,9 @@ private fun HeaderSection() {
                 fontWeight = FontWeight.Bold
             )
 
-            BackIconButton()
+            BackIconButton { /*TODO()*/ }
 
-            InfoIconButton(Modifier.align(Alignment.BottomEnd))
+            InfoIconButton(Modifier.align(Alignment.BottomEnd)) { TODO() }
         }
         LogoImage()
     }
@@ -89,14 +94,4 @@ private fun AuthSection() {
 
         BrightButton(text = stringResource(id = R.string.next), onClick = { /*TODO*/ })
     }
-}
-
-@Composable
-private fun BackgroundImage() {
-    Image(
-        modifier = Modifier.fillMaxSize(),
-        painter = painterResource(id = R.drawable.recover_background),
-        contentDescription = stringResource(R.string.background_with_marker_and_glue),
-        contentScale = ContentScale.Crop
-    )
 }
