@@ -12,10 +12,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -28,7 +28,8 @@ import ru.mintroxis.kanzlerapp.presentation.components.MainScaffold
 import ru.mintroxis.kanzlerapp.presentation.components.PasswordInfoText
 import ru.mintroxis.kanzlerapp.presentation.components.PasswordTextField
 import ru.mintroxis.kanzlerapp.presentation.components.PhoneNumberTextField
-import ru.mintroxis.kanzlerapp.ui.theme.rubikFamily
+import ru.mintroxis.kanzlerapp.ui.theme.DeepRed
+import ru.mintroxis.kanzlerapp.ui.theme.rubikOneFamily
 
 @Preview
 @Composable
@@ -66,9 +67,9 @@ private fun HeaderSection() {
             Text(
                 modifier = Modifier.align(Alignment.TopCenter),
                 text = stringResource(R.string.password_recover),
-                fontFamily = rubikFamily,
+                fontFamily = rubikOneFamily,
                 fontSize = 20.sp,
-                fontWeight = FontWeight.Bold
+                color = Color.Black
             )
 
             BackIconButton { /*TODO()*/ }

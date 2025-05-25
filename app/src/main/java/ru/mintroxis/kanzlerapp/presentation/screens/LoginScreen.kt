@@ -34,7 +34,7 @@ import ru.mintroxis.kanzlerapp.presentation.components.PasswordInfoText
 import ru.mintroxis.kanzlerapp.presentation.components.PasswordTextField
 import ru.mintroxis.kanzlerapp.presentation.components.PhoneNumberTextField
 import ru.mintroxis.kanzlerapp.ui.theme.AlternativeWhite
-import ru.mintroxis.kanzlerapp.ui.theme.DeepRed
+import ru.mintroxis.kanzlerapp.ui.theme.Red
 import ru.mintroxis.kanzlerapp.ui.theme.rubikFamily
 
 @Preview
@@ -91,7 +91,7 @@ private fun RegButton() {
             width = 332.dp, height = 40.dp
         ),
         onClick = { /*TODO*/ },
-        border = BorderStroke(width = 2.dp, color = DeepRed),
+        border = BorderStroke(width = 2.dp, color = Red),
         colors = ButtonDefaults.buttonColors(containerColor = AlternativeWhite),
         elevation = ButtonDefaults.buttonElevation(4.dp)
     ) {
@@ -158,7 +158,7 @@ private fun ForgetPasswordButton() {
             modifier = Modifier,
 
             text = stringResource(id = R.string.forget_password),
-            color = DeepRed,
+            color = Red,
             fontSize = 17.sp,
             textDecoration = TextDecoration.Underline,
             fontFamily = rubikFamily

@@ -37,4 +37,20 @@
     <string name="enter_the_code_from_sms">Введите код из SMS-сообщения</string>
     <string name="confirm">Подтвердить</string>
     <string name="resend">Отправить повторно</string>
+    <string name="rounded_triangle">Скруглённый треугольник</string>
+    <string name="hello">"Привет, "</string>
+    <string name="notifications">Уведомления</string>
+    <string name="bonus_card">Бонусная\nкарта</string>
+    <string name="bonuses">Бонусов:\n</string>
+    <string name="qr_code">QR-код</string>
+    <string name="promotions">Акции</string>
+    <string name="open_icon">Иконка открытия раздела</string>
+    <string name="all">Все</string>
+    <string name="interesting">Интересное</string>
+    <string name="store_addresses">Адреса магазинов</string>
+    <string name="instagram_icon">Иконка инстаграма</string>
+    <string name="clock_icon">Иконка часов</string>
+    <string name="instagram">Instagram</string>
+    <string name="whatsapp_icon">Иконка Whatsapp</string>
+    <string name="whatsapp">Whatsapp</string>
 </resources>

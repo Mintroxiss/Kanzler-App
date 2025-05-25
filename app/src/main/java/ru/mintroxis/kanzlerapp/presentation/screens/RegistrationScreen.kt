@@ -1,6 +1,5 @@
 package ru.mintroxis.kanzlerapp.presentation.screens
 
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -44,7 +43,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalUriHandler
@@ -65,14 +63,16 @@ import com.owlbuddy.www.countrycodechooser.utils.enums.CountryCodeType
 import ru.mintroxis.kanzlerapp.R
 import ru.mintroxis.kanzlerapp.presentation.components.BackIconButton
 import ru.mintroxis.kanzlerapp.presentation.components.BrightButton
+import ru.mintroxis.kanzlerapp.presentation.components.CircleCanvas
 import ru.mintroxis.kanzlerapp.presentation.components.MainScaffold
 import ru.mintroxis.kanzlerapp.presentation.utils.NanpVisualTransformation
 import ru.mintroxis.kanzlerapp.ui.theme.AlternativeWhite
 import ru.mintroxis.kanzlerapp.ui.theme.DeepRed
+import ru.mintroxis.kanzlerapp.ui.theme.Red
 import ru.mintroxis.kanzlerapp.ui.theme.Grey
-import ru.mintroxis.kanzlerapp.ui.theme.TranspRed
 import ru.mintroxis.kanzlerapp.ui.theme.White
 import ru.mintroxis.kanzlerapp.ui.theme.rubikFamily
+import ru.mintroxis.kanzlerapp.ui.theme.rubikOneFamily
 
 @Preview(showBackground = true)
 @Composable
@@ -83,15 +83,12 @@ fun RegistrationScreen() {
             .background(White),
         contentAlignment = Alignment.Center
     ) {
-        Canvas(
-            modifier = Modifier.fillMaxSize()
-        ) {
-            drawCircle(
-                color = TranspRed,
-                radius = size.width * 0.3f,
-                center = Offset(size.width * 0.9f, size.height * 0.2f)
-            )
-        }
+        CircleCanvas(
+            modifier = Modifier.fillMaxSize(),
+            width = 0.9f,
+            height = 0.2f,
+            radius = 0.3f
+        )
 
         MainScaffold {
             HeaderSection()
@@ -126,9 +123,9 @@ private fun HeaderSection() {
         Text(
             modifier = Modifier.align(Alignment.TopCenter),
             text = stringResource(R.string.registration),
-            fontFamily = rubikFamily,
+            fontFamily = rubikOneFamily,
             fontSize = 20.sp,
-            fontWeight = FontWeight.Bold
+            color = DeepRed
         )
     }
 }
@@ -185,8 +182,8 @@ private fun AcceptCheckbox(
     ) {
         Checkbox(
             checked = checked, onCheckedChange = onCheckedChange, colors = CheckboxDefaults.colors(
-                checkedColor = DeepRed,
-                uncheckedColor = DeepRed,
+                checkedColor = Red,
+                uncheckedColor = Red,
                 checkmarkColor = White,
             )
         )
@@ -197,7 +194,7 @@ private fun AcceptCheckbox(
             pushStringAnnotation(tag = "URL", annotation = link)
             withStyle(
                 style = SpanStyle(
-                    color = DeepRed,
+                    color = Red,
                     textDecoration = TextDecoration.Underline
                 )
             ) {
@@ -305,7 +302,7 @@ private fun GenderOption(
                 selected = selected,
                 onClick = null,
                 colors = RadioButtonDefaults.colors(
-                    selectedColor = DeepRed,
+                    selectedColor = Red,
                     unselectedColor = Color.Black
                 )
             )
@@ -416,7 +413,7 @@ private fun CustomDropdown(
                     .menuAnchor()
                     .border(
                         width = 1.dp,
-                        color = DeepRed,
+                        color = Red,
                         shape = RoundedCornerShape(14.dp)
                     ),
                 value = value,
@@ -596,9 +593,9 @@ private fun textFieldTextStyle(): TextStyle = TextStyle(
 private fun textFieldColors(): TextFieldColors = TextFieldDefaults.colors(
     unfocusedContainerColor = Color.Transparent,
     focusedContainerColor = Color.Transparent,
-    focusedIndicatorColor = DeepRed,
+    focusedIndicatorColor = Red,
     unfocusedIndicatorColor = Grey,
-    focusedLabelColor = DeepRed,
+    focusedLabelColor = Red,
     unfocusedLabelColor = Grey,
 )
 

@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import ru.mintroxis.kanzlerapp.presentation.screens.EnterTheCodeScreen
+import ru.mintroxis.kanzlerapp.presentation.screens.HomeScreen
 import ru.mintroxis.kanzlerapp.presentation.screens.LoginScreen
 import ru.mintroxis.kanzlerapp.presentation.screens.RecoverScreen
 import ru.mintroxis.kanzlerapp.presentation.screens.RegistrationScreen
@@ -17,7 +18,8 @@ class MainActivity : ComponentActivity() {
 //            LoginScreen()
 //            RegistrationScreen()
 //            RecoverScreen()
-            EnterTheCodeScreen()
+//            EnterTheCodeScreen()
+            HomeScreen()
         }
     }
 }

@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import ru.mintroxis.kanzlerapp.ui.theme.DeepRed
+import ru.mintroxis.kanzlerapp.ui.theme.Red
 
 @SuppressLint("ModifierFactoryUnreferencedReceiver")
 fun Modifier.authTextFieldArgs(): Modifier {
@@ -16,7 +16,7 @@ fun Modifier.authTextFieldArgs(): Modifier {
         .size(width = 332.dp, height = 60.dp)
         .border(
             width = 1.dp,
-            color = DeepRed,
+            color = Red,
             shape = RoundedCornerShape(14.dp)
         )
         .shadow(

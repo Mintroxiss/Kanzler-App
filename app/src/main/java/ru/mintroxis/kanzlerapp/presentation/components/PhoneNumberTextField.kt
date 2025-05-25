@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.sp
 import com.owlbuddy.www.countrycodechooser.CountryCodeChooser
 import com.owlbuddy.www.countrycodechooser.utils.enums.CountryCodeType
 import ru.mintroxis.kanzlerapp.presentation.utils.NanpVisualTransformation
-import ru.mintroxis.kanzlerapp.ui.theme.DeepRed
+import ru.mintroxis.kanzlerapp.ui.theme.Red
 import ru.mintroxis.kanzlerapp.ui.theme.rubikFamily
 
 @Preview
@@ -60,7 +60,7 @@ fun PhoneNumberTextField() {
                 CountryCodeChooser(modifier = Modifier
                     .size(60.dp)
                     .border(
-                        width = 1.dp, shape = RoundedCornerShape(14.dp), color = DeepRed
+                        width = 1.dp, shape = RoundedCornerShape(14.dp), color = Red
                     ),
                     textStyle = TextStyle(
                         fontFamily = rubikFamily, fontSize = 17.sp, fontWeight = FontWeight.Normal

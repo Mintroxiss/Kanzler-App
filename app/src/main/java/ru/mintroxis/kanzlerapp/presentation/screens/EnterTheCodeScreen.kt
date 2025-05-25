@@ -42,8 +42,11 @@ import ru.mintroxis.kanzlerapp.presentation.components.InfoIconButton
 import ru.mintroxis.kanzlerapp.presentation.components.LogoImage
 import ru.mintroxis.kanzlerapp.presentation.components.MainScaffold
 import ru.mintroxis.kanzlerapp.ui.theme.DeepRed
+import ru.mintroxis.kanzlerapp.ui.theme.Red
 import ru.mintroxis.kanzlerapp.ui.theme.LightGrey
+import ru.mintroxis.kanzlerapp.ui.theme.White
 import ru.mintroxis.kanzlerapp.ui.theme.rubikFamily
+import ru.mintroxis.kanzlerapp.ui.theme.rubikOneFamily
 
 @Preview
 @Composable
@@ -51,7 +54,7 @@ fun EnterTheCodeScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(White)
     ) {
         MainScaffold {
             HeaderSection()
@@ -64,7 +67,11 @@ fun EnterTheCodeScreen() {
 @Composable
 private fun InputSection() {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = stringResource(R.string.enter_the_code_from_sms))
+        Text(
+            text = stringResource(R.string.enter_the_code_from_sms),
+            fontFamily = rubikFamily,
+            fontSize = 16.sp
+        )
 
         VerificationCodeInput { /*TODO*/ }
 
@@ -74,7 +81,7 @@ private fun InputSection() {
             Text(
                 modifier = Modifier,
                 text = stringResource(R.string.resend),
-                color = DeepRed,
+                color = Red,
                 fontSize = 16.sp,
                 fontFamily = rubikFamily
             )
@@ -123,8 +130,8 @@ fun VerificationCodeInput(onCodeComplete: (String) -> Unit) {
                     unfocusedContainerColor = LightGrey,
                     focusedContainerColor = LightGrey,
                     unfocusedIndicatorColor = Color.Transparent,
-                    focusedIndicatorColor = DeepRed,
-                    cursorColor = DeepRed
+                    focusedIndicatorColor = Red,
+                    cursorColor = Red
                 ),
                 shape = RoundedCornerShape(10.dp)
             )
@@ -155,9 +162,9 @@ private fun HeaderSection() {
             Text(
                 modifier = Modifier.align(Alignment.TopCenter),
                 text = stringResource(R.string.enter_the_code),
-                fontFamily = rubikFamily,
+                fontFamily = rubikOneFamily,
                 fontSize = 20.sp,
-                fontWeight = FontWeight.Bold
+                color = Color.Black
             )
 
             BackIconButton { /*TODO()*/ }
