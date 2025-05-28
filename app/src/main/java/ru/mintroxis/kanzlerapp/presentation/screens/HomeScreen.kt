@@ -49,6 +49,7 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.mintroxis.kanzlerapp.R
+import ru.mintroxis.kanzlerapp.presentation.components.AddressBanner
 import ru.mintroxis.kanzlerapp.presentation.components.CircleCanvas
 import ru.mintroxis.kanzlerapp.presentation.components.MainScaffold
 import ru.mintroxis.kanzlerapp.ui.theme.DarkWhite
@@ -77,7 +78,7 @@ fun HomeScreen() {
         MainScaffold {
             HeaderSection()
 
-            BonusCardSection()
+            BonusCardElement()
 
             Spacer(Modifier.height(28.dp))
 
@@ -175,77 +176,7 @@ private fun AddressesSection() {
     }
 }
 
-@Composable
-private fun AddressBanner(item: Array<String>) {
-    Box(
-        Modifier
-            .width(215.dp)
-            .padding(start = 10.dp)
-            .clip(RoundedCornerShape(5))
-            .border(width = 1.dp, color = Lime, shape = RoundedCornerShape(5))
-            .background(color = Color.White)
-    ) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        )
-        {
-            Spacer(Modifier.height(13.dp))
 
-            Text(
-                text = item[0],
-                fontFamily = rubikFamily,
-                fontSize = 15.sp,
-                fontWeight = FontWeight.SemiBold
-            )
-
-            Spacer(Modifier.height(2.dp))
-
-            Text(
-                text = item[1],
-                fontFamily = rubikFamily,
-                fontSize = 13.sp,
-            )
-
-            Spacer(Modifier.height(1.dp))
-
-            Text(
-                text = item[2],
-                fontFamily = rubikFamily,
-                fontSize = 11.sp,
-            )
-
-            Spacer(Modifier.height(6.dp))
-
-            HorizontalDivider(
-                modifier = Modifier.width(132.dp),
-                thickness = 1.dp,
-                color = Color.Gray
-            )
-
-            Spacer(Modifier.height(6.dp))
-
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Image(
-                    modifier = Modifier.size(20.dp),
-                    painter = painterResource(R.drawable.clock_icon),
-                    contentDescription = stringResource(R.string.clock_icon)
-                )
-
-                Spacer(Modifier.width(2.dp))
-
-                Text(
-                    text = item[3],
-                    fontFamily = rubikFamily,
-                    fontSize = 16.sp,
-                )
-            }
-
-            Spacer(Modifier.height(13.dp))
-        }
-    }
-}
 
 @Composable
 private fun InterestingSection() {
@@ -259,7 +190,7 @@ private fun InterestingSection() {
         stringResource(R.string.interesting),
         openAllAction = { /*TODO*/ }) {
         for (item in list)
-            ClickableImageWithText(item)
+            ClickableImageWithTextElement(item)
     }
 }
 
@@ -275,7 +206,7 @@ private fun PromotionsSection() {
         openAllAction = { /*TODO*/ },
     ) {
         for (item in list)
-            ClickableImageWithText(item)
+            ClickableImageWithTextElement(item)
     }
 }
 
@@ -315,7 +246,7 @@ private fun ScrollableContent(
 }
 
 @Composable
-private fun ClickableImageWithText(item: Pair<Int, String>) {
+private fun ClickableImageWithTextElement(item: Pair<Int, String>) {
     Column(modifier = Modifier.padding(start = 10.dp)) {
         Image(
             modifier = Modifier
@@ -373,7 +304,7 @@ private fun OpenContentButton(text: String, onClick: () -> Unit) {
 }
 
 @Composable
-private fun BonusCardSection() {
+private fun BonusCardElement() {
     Box(
         modifier = Modifier
             .fillMaxWidth()

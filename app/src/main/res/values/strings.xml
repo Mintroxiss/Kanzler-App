@@ -53,4 +53,15 @@
     <string name="instagram">Instagram</string>
     <string name="whatsapp_icon">Иконка Whatsapp</string>
     <string name="whatsapp">Whatsapp</string>
+    <string name="purchase_history">История покупок</string>
+    <string name="settings">Настройки</string>
+    <string name="bonus_program">Бонусная программа</string>
+    <string name="support">Поддержка</string>
+    <string name="purchase_history_icon">Иконка истории покупок</string>
+    <string name="settings_icon">Иконка настроек</string>
+    <string name="notifications_icon">Иконка уведомлений</string>
+    <string name="bonus_program_icon">Иконка бонусной программы</string>
+    <string name="support_icon">Поддержка</string>
+    <string name="logout_icon">Иконка выхода</string>
+    <string name="logout">Выйти</string>
 </resources>

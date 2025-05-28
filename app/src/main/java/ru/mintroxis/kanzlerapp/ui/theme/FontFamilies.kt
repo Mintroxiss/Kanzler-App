@@ -7,6 +7,7 @@ import androidx.compose.ui.text.font.FontWeight
 import ru.mintroxis.kanzlerapp.R
 
 val rubikFamily = FontFamily(
+    Font(R.font.rubik_light, FontWeight.Light),
     Font(R.font.rubik_regular, FontWeight.Normal),
     Font(R.font.rubik_medium, FontWeight.Medium),
     Font(R.font.rubik_semibold, FontWeight.SemiBold),
