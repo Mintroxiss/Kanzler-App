@@ -64,4 +64,11 @@
     <string name="support_icon">Поддержка</string>
     <string name="logout_icon">Иконка выхода</string>
     <string name="logout">Выйти</string>
+    <string name="accrual_rules">Правила начисления</string>
+    <string name="home">Главная</string>
+    <string name="qr">QR</string>
+    <string name="profile">Профиль</string>
+    <string name="home_icon">Иконка главной страницы</string>
+    <string name="qr_icon">Иконка QR</string>
+    <string name="profile_icon">Иконка профиля</string>
 </resources>

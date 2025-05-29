@@ -1,4 +1,4 @@
-package ru.mintroxis.kanzlerapp.presentation.components
+package ru.mintroxis.kanzlerapp.ui.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize

@@ -1,4 +1,4 @@
-package ru.mintroxis.kanzlerapp.presentation.screens
+package ru.mintroxis.kanzlerapp.ui.presentation.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -20,7 +20,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -49,12 +48,11 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.mintroxis.kanzlerapp.R
-import ru.mintroxis.kanzlerapp.presentation.components.AddressBanner
-import ru.mintroxis.kanzlerapp.presentation.components.CircleCanvas
-import ru.mintroxis.kanzlerapp.presentation.components.MainScaffold
+import ru.mintroxis.kanzlerapp.ui.presentation.components.AddressBanner
+import ru.mintroxis.kanzlerapp.ui.presentation.components.CircleCanvas
+import ru.mintroxis.kanzlerapp.ui.presentation.components.MainScaffold
 import ru.mintroxis.kanzlerapp.ui.theme.DarkWhite
 import ru.mintroxis.kanzlerapp.ui.theme.Grey
-import ru.mintroxis.kanzlerapp.ui.theme.Lime
 import ru.mintroxis.kanzlerapp.ui.theme.Red
 import ru.mintroxis.kanzlerapp.ui.theme.White
 import ru.mintroxis.kanzlerapp.ui.theme.rubikFamily

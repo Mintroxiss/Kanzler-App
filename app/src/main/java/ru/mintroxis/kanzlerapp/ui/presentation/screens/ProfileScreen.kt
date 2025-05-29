@@ -1,4 +1,4 @@
-package ru.mintroxis.kanzlerapp.presentation.screens
+package ru.mintroxis.kanzlerapp.ui.presentation.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -36,8 +36,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.mintroxis.kanzlerapp.R
-import ru.mintroxis.kanzlerapp.presentation.components.AddressBanner
-import ru.mintroxis.kanzlerapp.presentation.components.MainScaffold
+import ru.mintroxis.kanzlerapp.ui.presentation.components.AddressBanner
+import ru.mintroxis.kanzlerapp.ui.presentation.components.MainScaffold
 import ru.mintroxis.kanzlerapp.ui.theme.DarkWhite
 import ru.mintroxis.kanzlerapp.ui.theme.Grey
 import ru.mintroxis.kanzlerapp.ui.theme.Red

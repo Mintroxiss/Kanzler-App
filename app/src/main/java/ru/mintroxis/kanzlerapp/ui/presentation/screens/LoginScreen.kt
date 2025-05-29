@@ -1,4 +1,4 @@
-package ru.mintroxis.kanzlerapp.presentation.screens
+package ru.mintroxis.kanzlerapp.ui.presentation.screens
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -26,13 +26,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.mintroxis.kanzlerapp.R
-import ru.mintroxis.kanzlerapp.presentation.components.BrightButton
-import ru.mintroxis.kanzlerapp.presentation.components.InfoIconButton
-import ru.mintroxis.kanzlerapp.presentation.components.LogoImage
-import ru.mintroxis.kanzlerapp.presentation.components.MainScaffold
-import ru.mintroxis.kanzlerapp.presentation.components.PasswordInfoText
-import ru.mintroxis.kanzlerapp.presentation.components.PasswordTextField
-import ru.mintroxis.kanzlerapp.presentation.components.PhoneNumberTextField
+import ru.mintroxis.kanzlerapp.ui.presentation.components.BrightButton
+import ru.mintroxis.kanzlerapp.ui.presentation.components.InfoIconButton
+import ru.mintroxis.kanzlerapp.ui.presentation.components.LogoImage
+import ru.mintroxis.kanzlerapp.ui.presentation.components.MainScaffold
+import ru.mintroxis.kanzlerapp.ui.presentation.components.PasswordInfoText
+import ru.mintroxis.kanzlerapp.ui.presentation.components.PasswordTextField
+import ru.mintroxis.kanzlerapp.ui.presentation.components.PhoneNumberTextField
 import ru.mintroxis.kanzlerapp.ui.theme.AlternativeWhite
 import ru.mintroxis.kanzlerapp.ui.theme.Red
 import ru.mintroxis.kanzlerapp.ui.theme.rubikFamily

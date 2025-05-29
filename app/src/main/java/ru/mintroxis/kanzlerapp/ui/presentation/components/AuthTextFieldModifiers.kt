@@ -1,4 +1,4 @@
-package ru.mintroxis.kanzlerapp.presentation.components
+package ru.mintroxis.kanzlerapp.ui.presentation.components
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.border
