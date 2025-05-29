@@ -64,7 +64,7 @@ import ru.mintroxis.kanzlerapp.R
 import ru.mintroxis.kanzlerapp.ui.presentation.components.BackIconButton
 import ru.mintroxis.kanzlerapp.ui.presentation.components.BrightButton
 import ru.mintroxis.kanzlerapp.ui.presentation.components.CircleCanvas
-import ru.mintroxis.kanzlerapp.ui.presentation.components.MainScaffold
+import ru.mintroxis.kanzlerapp.ui.presentation.components.MainScreenColumn
 import ru.mintroxis.kanzlerapp.ui.presentation.utils.NanpVisualTransformation
 import ru.mintroxis.kanzlerapp.ui.theme.AlternativeWhite
 import ru.mintroxis.kanzlerapp.ui.theme.DeepRed
@@ -90,7 +90,7 @@ fun RegistrationScreen() {
             radius = 0.3f
         )
 
-        MainScaffold {
+        MainScreenColumn {
             HeaderSection()
 
             Spacer(modifier = Modifier.height(10.dp))

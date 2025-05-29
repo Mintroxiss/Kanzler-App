@@ -29,7 +29,7 @@ import ru.mintroxis.kanzlerapp.R
 import ru.mintroxis.kanzlerapp.ui.presentation.components.BrightButton
 import ru.mintroxis.kanzlerapp.ui.presentation.components.InfoIconButton
 import ru.mintroxis.kanzlerapp.ui.presentation.components.LogoImage
-import ru.mintroxis.kanzlerapp.ui.presentation.components.MainScaffold
+import ru.mintroxis.kanzlerapp.ui.presentation.components.MainScreenColumn
 import ru.mintroxis.kanzlerapp.ui.presentation.components.PasswordInfoText
 import ru.mintroxis.kanzlerapp.ui.presentation.components.PasswordTextField
 import ru.mintroxis.kanzlerapp.ui.presentation.components.PhoneNumberTextField
@@ -52,7 +52,7 @@ fun LoginScreen() {
             contentScale = ContentScale.Crop
         )
 
-        MainScaffold {
+        MainScreenColumn {
             HeaderSection()
 
             Spacer(modifier = Modifier.weight(1f))

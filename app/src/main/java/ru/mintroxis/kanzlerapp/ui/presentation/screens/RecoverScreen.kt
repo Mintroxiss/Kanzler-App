@@ -24,11 +24,10 @@ import ru.mintroxis.kanzlerapp.ui.presentation.components.BackIconButton
 import ru.mintroxis.kanzlerapp.ui.presentation.components.BrightButton
 import ru.mintroxis.kanzlerapp.ui.presentation.components.InfoIconButton
 import ru.mintroxis.kanzlerapp.ui.presentation.components.LogoImage
-import ru.mintroxis.kanzlerapp.ui.presentation.components.MainScaffold
+import ru.mintroxis.kanzlerapp.ui.presentation.components.MainScreenColumn
 import ru.mintroxis.kanzlerapp.ui.presentation.components.PasswordInfoText
 import ru.mintroxis.kanzlerapp.ui.presentation.components.PasswordTextField
 import ru.mintroxis.kanzlerapp.ui.presentation.components.PhoneNumberTextField
-import ru.mintroxis.kanzlerapp.ui.theme.DeepRed
 import ru.mintroxis.kanzlerapp.ui.theme.rubikOneFamily
 
 @Preview
@@ -42,7 +41,7 @@ fun RecoverScreen() {
             contentScale = ContentScale.Crop
         )
 
-        MainScaffold {
+        MainScreenColumn {
             HeaderSection()
             AuthSection()
         }

@@ -50,7 +50,7 @@ import androidx.compose.ui.unit.sp
 import ru.mintroxis.kanzlerapp.R
 import ru.mintroxis.kanzlerapp.ui.presentation.components.AddressBanner
 import ru.mintroxis.kanzlerapp.ui.presentation.components.CircleCanvas
-import ru.mintroxis.kanzlerapp.ui.presentation.components.MainScaffold
+import ru.mintroxis.kanzlerapp.ui.presentation.components.MainScreenColumn
 import ru.mintroxis.kanzlerapp.ui.theme.DarkWhite
 import ru.mintroxis.kanzlerapp.ui.theme.Grey
 import ru.mintroxis.kanzlerapp.ui.theme.Red
@@ -73,7 +73,7 @@ fun HomeScreen() {
     ) {
         Background(parentSize)
 
-        MainScaffold {
+        MainScreenColumn {
             HeaderSection()
 
             BonusCardElement()

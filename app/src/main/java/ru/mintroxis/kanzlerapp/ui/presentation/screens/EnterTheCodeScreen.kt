@@ -40,7 +40,7 @@ import ru.mintroxis.kanzlerapp.ui.presentation.components.BackIconButton
 import ru.mintroxis.kanzlerapp.ui.presentation.components.BrightButton
 import ru.mintroxis.kanzlerapp.ui.presentation.components.InfoIconButton
 import ru.mintroxis.kanzlerapp.ui.presentation.components.LogoImage
-import ru.mintroxis.kanzlerapp.ui.presentation.components.MainScaffold
+import ru.mintroxis.kanzlerapp.ui.presentation.components.MainScreenColumn
 import ru.mintroxis.kanzlerapp.ui.theme.Red
 import ru.mintroxis.kanzlerapp.ui.theme.LightGrey
 import ru.mintroxis.kanzlerapp.ui.theme.White
@@ -55,7 +55,7 @@ fun EnterTheCodeScreen() {
             .fillMaxSize()
             .background(White)
     ) {
-        MainScaffold {
+        MainScreenColumn {
             HeaderSection()
 
             InputSection()

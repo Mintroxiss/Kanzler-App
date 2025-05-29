@@ -37,7 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.mintroxis.kanzlerapp.R
 import ru.mintroxis.kanzlerapp.ui.presentation.components.AddressBanner
-import ru.mintroxis.kanzlerapp.ui.presentation.components.MainScaffold
+import ru.mintroxis.kanzlerapp.ui.presentation.components.MainScreenColumn
 import ru.mintroxis.kanzlerapp.ui.theme.DarkWhite
 import ru.mintroxis.kanzlerapp.ui.theme.Grey
 import ru.mintroxis.kanzlerapp.ui.theme.Red
@@ -52,7 +52,7 @@ fun ProfileScreen() {
             .fillMaxSize()
             .background(DarkWhite)
     ) {
-        MainScaffold {
+        MainScreenColumn {
             InfoElement()
 
             Spacer(modifier = Modifier.height(10.dp))
