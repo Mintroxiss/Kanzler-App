@@ -9,6 +9,9 @@ import ru.mintroxis.kanzlerapp.domain.ContentBanner
 import ru.mintroxis.kanzlerapp.domain.HomeScreenState
 
 class HomeViewModel : ViewModel() {
+    private val _homeScreenState = MutableLiveData<HomeScreenState>(HomeScreenState.Initial)
+    val homeScreenState: LiveData<HomeScreenState> = _homeScreenState
+
     init { loadHome() }
 
     fun loadHome() {
@@ -64,7 +67,4 @@ class HomeViewModel : ViewModel() {
             )
         )
     }
-
-    private val _homeScreenState = MutableLiveData<HomeScreenState>(HomeScreenState.Initial)
-    val homeScreenState: LiveData<HomeScreenState> = _homeScreenState
 }

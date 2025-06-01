@@ -7,6 +7,9 @@ import ru.mintroxis.kanzlerapp.domain.AddressBanner
 import ru.mintroxis.kanzlerapp.domain.ProfileScreenState
 
 class ProfileViewModel : ViewModel() {
+    private val _profileScreenData = MutableLiveData<ProfileScreenState>(ProfileScreenState.Initial)
+    val profileScreenState: LiveData<ProfileScreenState> = _profileScreenData
+
     init {
         loadProfile()
     }
@@ -33,7 +36,4 @@ class ProfileViewModel : ViewModel() {
             )
         )
     }
-
-    private val _profileScreenData = MutableLiveData<ProfileScreenState>(ProfileScreenState.Initial)
-    val profileScreenState: LiveData<ProfileScreenState> = _profileScreenData
 }

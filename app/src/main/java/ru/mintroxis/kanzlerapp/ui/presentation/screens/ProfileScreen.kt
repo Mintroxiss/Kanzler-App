@@ -51,7 +51,7 @@ import ru.mintroxis.kanzlerapp.ui.theme.rubikFamily
 import ru.mintroxis.kanzlerapp.vm.HomeViewModel
 import ru.mintroxis.kanzlerapp.vm.ProfileViewModel
 
-//@Preview
+@Preview
 @Composable
 fun ProfileScreen() {
     val viewModel: ProfileViewModel = viewModel()

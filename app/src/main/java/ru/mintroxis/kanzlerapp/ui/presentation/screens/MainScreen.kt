@@ -27,7 +27,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.currentBackStackEntryAsState
 import ru.mintroxis.kanzlerapp.ui.presentation.navigation.AppNavGraph
 import ru.mintroxis.kanzlerapp.ui.presentation.navigation.NavigationState
@@ -39,7 +38,6 @@ import ru.mintroxis.kanzlerapp.ui.theme.Red
 import ru.mintroxis.kanzlerapp.ui.theme.White
 import ru.mintroxis.kanzlerapp.ui.theme.rubikFamily
 import ru.mintroxis.kanzlerapp.ui.theme.rubikOneFamily
-import ru.mintroxis.kanzlerapp.vm.HomeViewModel
 
 @Preview
 @Composable
