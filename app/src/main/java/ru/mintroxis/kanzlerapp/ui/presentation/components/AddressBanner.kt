@@ -27,11 +27,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.mintroxis.kanzlerapp.R
+import ru.mintroxis.kanzlerapp.domain.AddressBanner
 import ru.mintroxis.kanzlerapp.ui.theme.Lime
 import ru.mintroxis.kanzlerapp.ui.theme.rubikFamily
 
 @Composable
-fun AddressBanner(item: Array<String>) {
+fun AddressBanner(item: AddressBanner) {
     Box(
         Modifier
             .width(215.dp)
@@ -49,7 +50,7 @@ fun AddressBanner(item: Array<String>) {
             Spacer(Modifier.height(13.dp))
 
             Text(
-                text = item[0],
+                text = item.street,
                 fontFamily = rubikFamily,
                 fontSize = 15.sp,
                 fontWeight = FontWeight.SemiBold
@@ -58,7 +59,7 @@ fun AddressBanner(item: Array<String>) {
             Spacer(Modifier.height(2.dp))
 
             Text(
-                text = item[1],
+                text = item.address,
                 fontFamily = rubikFamily,
                 fontSize = 13.sp,
             )
@@ -66,7 +67,7 @@ fun AddressBanner(item: Array<String>) {
             Spacer(Modifier.height(1.dp))
 
             Text(
-                text = item[2],
+                text = item.phone,
                 fontFamily = rubikFamily,
                 fontSize = 11.sp,
             )
@@ -91,7 +92,7 @@ fun AddressBanner(item: Array<String>) {
                 Spacer(Modifier.width(2.dp))
 
                 Text(
-                    text = item[3],
+                    text = item.openingHours,
                     fontFamily = rubikFamily,
                     fontSize = 16.sp,
                 )

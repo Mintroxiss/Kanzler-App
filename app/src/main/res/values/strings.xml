@@ -71,4 +71,8 @@
     <string name="home_icon">Иконка главной страницы</string>
     <string name="qr_icon">Иконка QR</string>
     <string name="profile_icon">Иконка профиля</string>
+    <string name="qr_screen_background">QR фон</string>
+    <string name="home_background">Фон домашней страницы</string>
+    <string name="discount">скидка</string>
+    <string name="bonuces">бонусов</string>
 </resources>

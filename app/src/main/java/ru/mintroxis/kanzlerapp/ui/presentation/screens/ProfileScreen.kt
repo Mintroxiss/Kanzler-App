@@ -22,6 +22,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -35,7 +36,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
+import androidx.lifecycle.viewmodel.compose.viewModel
 import ru.mintroxis.kanzlerapp.R
+import ru.mintroxis.kanzlerapp.domain.ProfileScreenState
 import ru.mintroxis.kanzlerapp.ui.presentation.components.AddressBanner
 import ru.mintroxis.kanzlerapp.ui.presentation.components.MainScreenColumn
 import ru.mintroxis.kanzlerapp.ui.theme.DarkWhite
@@ -43,29 +48,52 @@ import ru.mintroxis.kanzlerapp.ui.theme.Grey
 import ru.mintroxis.kanzlerapp.ui.theme.Red
 import ru.mintroxis.kanzlerapp.ui.theme.White
 import ru.mintroxis.kanzlerapp.ui.theme.rubikFamily
+import ru.mintroxis.kanzlerapp.vm.HomeViewModel
+import ru.mintroxis.kanzlerapp.vm.ProfileViewModel
 
-@Preview
+//@Preview
 @Composable
 fun ProfileScreen() {
+    val viewModel: ProfileViewModel = viewModel()
+    val profileScreenState =
+        viewModel.profileScreenState.observeAsState(ProfileScreenState.Initial)
+
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(DarkWhite)
     ) {
         MainScreenColumn {
-            InfoElement()
-
-            Spacer(modifier = Modifier.height(10.dp))
-
-            BeneficialInformationElement()
-
-            Spacer(modifier = Modifier.size(18.dp))
-
-            MenuSection()
-
             Spacer(modifier = Modifier.height(12.dp))
 
-            AddressesSection()
+            when (val currentState = profileScreenState.value) {
+                is ProfileScreenState.Profile -> {
+                    InfoElement(name = currentState.name, phone = currentState.phone)
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    BeneficialInformationElement(
+                        bonuses = currentState.bonuses,
+                        discount = currentState.discount
+                    )
+
+                    Spacer(modifier = Modifier.size(18.dp))
+
+                    MenuSection()
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    ScrollableContent {
+                        for (item in currentState.addressesBannerList) {
+                            AddressBanner(item)
+                        }
+                    }
+                }
+                is ProfileScreenState.Initial -> {
+
+                }
+            }
+
 
             Spacer(modifier = Modifier.height(12.dp))
 
@@ -81,24 +109,9 @@ fun ProfileScreen() {
 }
 
 @Composable
-private fun AddressesSection() {
-    val list = listOf(
-        arrayOf("Гоголя/Огонбаева", "Огонбаева Атая,222", "+996 777-90-22-33", "09:00 - 18:00"),
-        arrayOf("Рубеля/Новодедова", "Рубеля Охаё,222", "+992 737-94-21-03", "09:00 - 20:00")
-    )
-
-    ScrollableContent {
-        for (item in list) {
-            AddressBanner(item)
-        }
-    }
-}
-
-@Composable
 private fun ScrollableContent(scrollableItems: @Composable () -> Unit) {
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
+        modifier = Modifier.fillMaxWidth()
     ) {
         Row(Modifier.horizontalScroll(rememberScrollState())) {
             Spacer(modifier = Modifier.width(15.dp))
@@ -113,13 +126,7 @@ private fun ScrollableContent(scrollableItems: @Composable () -> Unit) {
 @Composable
 private fun MenuSection() {
     Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-        val lambdas = listOf(
-            { /*TODO*/ },
-            { /*TODO*/ },
-            { /*TODO*/ },
-            { /*TODO*/ },
-            { /*TODO*/ }
-        )
+        val lambdas = listOf({ /*TODO*/ }, { /*TODO*/ }, { /*TODO*/ }, { /*TODO*/ }, { /*TODO*/ })
         val icons = listOf(
             R.drawable.purchase_history_icon,
             R.drawable.settings_icon,
@@ -186,19 +193,14 @@ private fun MenuSection() {
 
 @Composable
 private fun MenuElement(
-    onClick: () -> Unit,
-    shape: Shape,
-    painter: Painter,
-    contentDescription: String,
-    text: String
+    onClick: () -> Unit, shape: Shape, painter: Painter, contentDescription: String, text: String
 ) {
     Button(
         modifier = Modifier.width(362.dp),
         onClick = onClick,
         shape = shape,
         colors = ButtonDefaults.buttonColors(
-            containerColor = White,
-            contentColor = Color.Black
+            containerColor = White, contentColor = Color.Black
         )
     ) {
         Row(
@@ -233,54 +235,59 @@ private fun MenuElement(
 }
 
 @Composable
-private fun BeneficialInformationElement() {
+private fun BeneficialInformationElement(bonuses: String, discount: String) {
     Box(
         modifier = Modifier
             .size(width = 362.dp, height = 56.dp)
             .clip(RoundedCornerShape(5.dp))
-            .background(White),
-        contentAlignment = Alignment.Center
+            .background(White), contentAlignment = Alignment.Center
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
-                    text = "150",
+                    text = bonuses,
                     fontFamily = rubikFamily,
                     fontSize = 30.sp,
                     fontWeight = FontWeight.Bold,
                     color = Red
                 )
 
-                Text(text = "бонусов", fontFamily = rubikFamily, fontSize = 11.sp)
+                Text(
+                    text = stringResource(R.string.bonuces),
+                    fontFamily = rubikFamily,
+                    fontSize = 11.sp
+                )
             }
 
             Spacer(modifier = Modifier.width(25.dp))
 
             VerticalDivider(
-                modifier = Modifier.height(48.dp),
-                thickness = 1.dp,
-                color = Color.Gray
+                modifier = Modifier.height(48.dp), thickness = 1.dp, color = Color.Gray
             )
 
             Spacer(modifier = Modifier.width(25.dp))
 
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
-                    text = "5%",
+                    text = "$discount%",
                     fontFamily = rubikFamily,
                     fontSize = 30.sp,
                     fontWeight = FontWeight.Bold,
                     color = Red
                 )
 
-                Text(text = "скидка", fontFamily = rubikFamily, fontSize = 11.sp)
+                Text(
+                    text = stringResource(R.string.discount),
+                    fontFamily = rubikFamily,
+                    fontSize = 11.sp
+                )
             }
         }
     }
 }
 
 @Composable
-private fun InfoElement() {
+private fun InfoElement(name: String, phone: String) {
     Box(
         modifier = Modifier
             .size(width = 362.dp, height = 68.dp)
@@ -291,7 +298,7 @@ private fun InfoElement() {
     ) {
         Column {
             Text(
-                text = "Василий Петров",
+                text = name,
                 fontFamily = rubikFamily,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.SemiBold
@@ -300,7 +307,7 @@ private fun InfoElement() {
             Spacer(modifier = Modifier.height(2.dp))
 
             Text(
-                text = "+996 (555)-77-66-55",
+                text = phone,
                 fontFamily = rubikFamily,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Light,

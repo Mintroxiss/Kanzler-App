@@ -11,12 +11,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -41,64 +44,77 @@ fun QRScreen() {
             .background(DarkWhite),
         contentAlignment = Alignment.Center
     ) {
+        Image(
+            modifier = Modifier.fillMaxSize(),
+            painter = painterResource(R.drawable.qr_screen_background),
+            contentDescription = stringResource(R.string.qr_screen_background),
+            contentScale = ContentScale.Crop
+        )
+
         QRCodeSection()
     }
 }
 
 @Composable
 private fun QRCodeSection() {
-    Column(
+    Card(
         modifier = Modifier
-            .size(288.dp, 402.dp)
-            .clip(RoundedCornerShape(10.dp))
-            .background(LightGrey),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceEvenly
-    ) {
-        Row(
-            modifier = Modifier.width(200.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
+            .size(300.dp, 422.dp),
+        shape = RoundedCornerShape(20.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 20.dp),
+        colors = CardDefaults.cardColors(containerColor = LightGrey)
+    )
+    {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceEvenly
         ) {
-            BeneficialInfoText(numText = "5%", descrText = "скидка")
+            Row(
+                modifier = Modifier.width(200.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                BeneficialInfoText(numText = "5%", descrText = "скидка")
 
-            BeneficialInfoText(numText = "150", descrText = "бонусов")
-        }
+                BeneficialInfoText(numText = "150", descrText = "бонусов")
+            }
 
-        Box(
-            modifier = Modifier
-                .size(200.dp)
-                .clip(RoundedCornerShape(18.dp))
-                .background(White),
-            contentAlignment = Alignment.Center
-        ) {
-            Image(
-                modifier = Modifier.size(150.dp),
-                painter = painterResource(R.drawable.qr_code),
-                contentDescription = stringResource(R.string.qr_code)
-            )
-        }
+            Box(
+                modifier = Modifier
+                    .size(200.dp)
+                    .clip(RoundedCornerShape(18.dp))
+                    .background(White),
+                contentAlignment = Alignment.Center
+            ) {
+                Image(
+                    modifier = Modifier.size(150.dp),
+                    painter = painterResource(R.drawable.qr_code),
+                    contentDescription = stringResource(R.string.qr_code)
+                )
+            }
 
-        Text(
-            text = "Покажите этот код при оплате\n" +
-                    "для списания или начисления\n" +
-                    "бонусов",
-            fontFamily = rubikFamily,
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Light,
-            textAlign = TextAlign.Center
-        )
-
-        TextButton(modifier = Modifier.padding(top = 6.dp), onClick = { /*TODO*/ }) {
             Text(
-                modifier = Modifier,
-
-                text = stringResource(R.string.accrual_rules),
-                color = Red,
-                fontSize = 14.sp,
-                textDecoration = TextDecoration.Underline,
+                text = "Покажите этот код при оплате\n" +
+                        "для списания или начисления\n" +
+                        "бонусов",
                 fontFamily = rubikFamily,
-                fontWeight = FontWeight.Light
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Light,
+                textAlign = TextAlign.Center
             )
+
+            TextButton(modifier = Modifier.padding(top = 6.dp), onClick = { /*TODO*/ }) {
+                Text(
+                    modifier = Modifier,
+
+                    text = stringResource(R.string.accrual_rules),
+                    color = Red,
+                    fontSize = 14.sp,
+                    textDecoration = TextDecoration.Underline,
+                    fontFamily = rubikFamily,
+                    fontWeight = FontWeight.Light
+                )
+            }
         }
     }
 }

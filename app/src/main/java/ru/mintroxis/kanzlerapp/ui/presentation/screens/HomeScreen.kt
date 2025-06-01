@@ -20,22 +20,16 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -43,52 +37,83 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import ru.mintroxis.kanzlerapp.R
+import ru.mintroxis.kanzlerapp.domain.ContentBanner
+import ru.mintroxis.kanzlerapp.domain.HomeScreenState
 import ru.mintroxis.kanzlerapp.ui.presentation.components.AddressBanner
-import ru.mintroxis.kanzlerapp.ui.presentation.components.CircleCanvas
 import ru.mintroxis.kanzlerapp.ui.presentation.components.MainScreenColumn
 import ru.mintroxis.kanzlerapp.ui.theme.DarkWhite
 import ru.mintroxis.kanzlerapp.ui.theme.Grey
 import ru.mintroxis.kanzlerapp.ui.theme.Red
 import ru.mintroxis.kanzlerapp.ui.theme.White
 import ru.mintroxis.kanzlerapp.ui.theme.rubikFamily
-import ru.mintroxis.kanzlerapp.ui.theme.rubikOneFamily
+import ru.mintroxis.kanzlerapp.vm.HomeViewModel
 
-@Preview
 @Composable
 fun HomeScreen() {
-    var parentSize by remember { mutableStateOf(IntSize.Zero) }
-
+    val viewModel: HomeViewModel = viewModel()
+    val screenState = viewModel.homeScreenState.observeAsState(
+        HomeScreenState.Initial
+    )
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(DarkWhite)
-            .onGloballyPositioned { coordinates ->
-                parentSize = coordinates.size
-            }
     ) {
-        Background(parentSize)
+        Image(
+            modifier = Modifier.fillMaxSize(),
+            painter = painterResource(R.drawable.home_background),
+            contentDescription = stringResource(R.string.home_background),
+            contentScale = ContentScale.Crop
+        )
 
         MainScreenColumn {
-            HeaderSection()
+            Spacer(Modifier.height(35.dp))
 
-            BonusCardElement()
+            when (val currentState = screenState.value) {
+                is HomeScreenState.Home -> {
+                    BonusCardElement(
+                        qrImage = currentState.qrImage,
+                        bonuses = currentState.bonuses
+                    )
 
-            Spacer(Modifier.height(28.dp))
+                    Spacer(Modifier.height(28.dp))
 
-            InterestingSection()
+                    ScrollableContent(
+                        stringResource(R.string.interesting),
+                        openAllAction = { /*TODO*/ }) {
+                        for (item in currentState.interestingBannerList) {
+                            ClickableImageWithTextElement(item)
+                        }
+                    }
 
-            Spacer(Modifier.height(28.dp))
+                    Spacer(Modifier.height(28.dp))
 
-            PromotionsSection()
+                    ScrollableContent(
+                        stringResource(R.string.promotions),
+                        openAllAction = { /*TODO*/ }) {
+                        for (item in currentState.promotionBannerList) {
+                            ClickableImageWithTextElement(item)
+                        }
+                    }
 
-            Spacer(Modifier.height(28.dp))
+                    Spacer(Modifier.height(28.dp))
 
-            AddressesSection()
+                    ScrollableContent(
+                        text = stringResource(R.string.store_addresses),
+                        openAllAction = { /*TODO*/ }) {
+                        for (item in currentState.addressesBannerList) AddressBanner(item)
+                    }
+                }
+
+                is HomeScreenState.Initial -> {
+
+                }
+            }
+
 
             Spacer(Modifier.height(28.dp))
 
@@ -102,9 +127,7 @@ fun HomeScreen() {
 @Composable
 private fun SocialMediaSection() {
     Row(
-        modifier = Modifier
-            .fillMaxSize(),
-        horizontalArrangement = Arrangement.SpaceEvenly
+        modifier = Modifier.fillMaxSize(), horizontalArrangement = Arrangement.SpaceEvenly
     ) {
         SocialMediaButton(
             onClick = { /*TODO*/ },
@@ -124,17 +147,13 @@ private fun SocialMediaSection() {
 
 @Composable
 private fun SocialMediaButton(
-    onClick: () -> Unit,
-    painter: Painter,
-    contentDescription: String,
-    text: String
+    onClick: () -> Unit, painter: Painter, contentDescription: String, text: String
 ) {
     Button(
         modifier = Modifier.size(width = 175.dp, height = 55.dp),
         shape = RoundedCornerShape(5.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = Color.White,
-            contentColor = Color.Black
+            containerColor = Color.White, contentColor = Color.Black
         ),
         onClick = onClick
     ) {
@@ -159,68 +178,16 @@ private fun SocialMediaButton(
 }
 
 @Composable
-private fun AddressesSection() {
-    val list = listOf(
-        arrayOf("Гоголя/Огонбаева", "Огонбаева Атая,222", "+996 777-90-22-33", "09:00 - 18:00"),
-        arrayOf("Рубеля/Новодедова", "Рубеля Охаё,222", "+992 737-94-21-03", "09:00 - 20:00")
-    )
-
-    ScrollableContent(
-        text = stringResource(R.string.store_addresses),
-        openAllAction = { /*TODO*/ }
-    ) {
-        for (item in list)
-            AddressBanner(item)
-    }
-}
-
-
-
-@Composable
-private fun InterestingSection() {
-    val list = listOf(
-        R.drawable.get_pen to "Получи ручку в подарок",
-        R.drawable.calculator to "Калькуляторы - зло!",
-        R.drawable.get_pen to "Получи конфеты в подарок",
-    )
-
-    ScrollableContent(
-        stringResource(R.string.interesting),
-        openAllAction = { /*TODO*/ }) {
-        for (item in list)
-            ClickableImageWithTextElement(item)
-    }
-}
-
-@Composable
-private fun PromotionsSection() {
-    val list = listOf(
-        R.drawable.presents_from_attache to "Attache несёт радость!",
-        R.drawable.calculator to "2 калькулятора\nпо цене 1"
-    )
-
-    ScrollableContent(
-        stringResource(R.string.promotions),
-        openAllAction = { /*TODO*/ },
-    ) {
-        for (item in list)
-            ClickableImageWithTextElement(item)
-    }
-}
-
-@Composable
 private fun ScrollableContent(
     text: String,
     openAllAction: () -> Unit,
     scrollableItems: @Composable () -> Unit,
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
+        modifier = Modifier.fillMaxWidth()
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
+            modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
                 modifier = Modifier.padding(start = 25.dp, top = 12.dp),
@@ -244,7 +211,7 @@ private fun ScrollableContent(
 }
 
 @Composable
-private fun ClickableImageWithTextElement(item: Pair<Int, String>) {
+private fun ClickableImageWithTextElement(item: ContentBanner) {
     Column(modifier = Modifier.padding(start = 10.dp)) {
         Image(
             modifier = Modifier
@@ -252,14 +219,15 @@ private fun ClickableImageWithTextElement(item: Pair<Int, String>) {
                 .clip(RoundedCornerShape(10))
                 .border(width = 1.dp, color = Grey, shape = RoundedCornerShape(10))
                 .clickable { /*TODO*/ },
-            painter = painterResource(item.first),
-            contentDescription = item.second
+            painter = painterResource(item.imageID),
+            contentDescription = "",
+            contentScale = ContentScale.Crop
         )
 
         Spacer(Modifier.height(3.dp))
 
         Text(
-            text = item.second,
+            text = item.title,
             fontFamily = rubikFamily,
             fontSize = 18.sp,
             fontWeight = FontWeight.Normal,
@@ -277,8 +245,7 @@ private fun OpenContentButton(text: String, onClick: () -> Unit) {
             .width(68.dp)
     ) {
         TextButton(
-            modifier = Modifier.align(Alignment.CenterStart),
-            onClick = onClick
+            modifier = Modifier.align(Alignment.CenterStart), onClick = onClick
         ) {
             Text(
                 text = text,
@@ -302,7 +269,7 @@ private fun OpenContentButton(text: String, onClick: () -> Unit) {
 }
 
 @Composable
-private fun BonusCardElement() {
+private fun BonusCardElement(qrImage: Int, bonuses: String) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -326,12 +293,11 @@ private fun BonusCardElement() {
                         append(stringResource(R.string.bonuses))
                     }
                     withStyle(SpanStyle(fontSize = 32.sp, fontWeight = FontWeight.Bold)) {
-                        append("100") // TODO
+                        append(bonuses)
                     }
                 }
 
-            },
-            modifier = Modifier.align(Alignment.BottomStart)
+            }, modifier = Modifier.align(Alignment.BottomStart)
         )
 
         Box(
@@ -344,76 +310,13 @@ private fun BonusCardElement() {
         ) {
             Image(
                 modifier = Modifier.fillMaxSize(),
-                painter = painterResource(R.drawable.qr_code), // TODO
+                painter = painterResource(qrImage),
                 contentDescription = stringResource(
                     R.string.qr_code
                 )
             )
         }
     }
-}
-
-@Composable
-private fun HeaderSection() {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = 27.dp, end = 12.dp),
-    ) {
-        Text(
-            modifier = Modifier.align(Alignment.CenterStart),
-            text = stringResource(R.string.hello) + "Роман" + "!",
-            fontFamily = rubikOneFamily,
-            fontSize = 20.sp,
-            color = Color.Black
-        )
-
-        IconButton(
-            modifier = Modifier.align(Alignment.TopEnd),
-            onClick = { /*TODO*/ }) {
-            Image(
-                modifier = Modifier.size(30.dp),
-                painter = painterResource(R.drawable.notification_icon),
-                contentDescription = stringResource(
-                    R.string.notifications
-                )
-            )
-        }
-    }
-}
-
-@Composable
-private fun Background(parentSize: IntSize) {
-    val density = LocalDensity.current
-
-    CircleCanvas(
-        modifier = Modifier.fillMaxSize(),
-        width = 0.21f,
-        height = 0.5f,
-        radius = 0.25f
-    )
-
-    CircleCanvas(
-        modifier = Modifier.fillMaxSize(),
-        width = 1.06f,
-        height = 0.75f,
-        radius = 0.2f
-    )
-
-    Image(
-        modifier = Modifier
-            .graphicsLayer {
-                translationX = parentSize.width * 0.8f
-                translationY = parentSize.height * 0.13f
-                scaleX = parentSize.width * 0.3f / with(density) { 100.dp.toPx() }
-                scaleY = parentSize.height * 0.15f / with(density) { 100.dp.toPx() }
-            }
-            .size(100.dp),
-        painter = painterResource(R.drawable.rounded_triangle),
-        contentDescription = stringResource(
-            R.string.rounded_triangle
-        )
-    )
 }
 
 
