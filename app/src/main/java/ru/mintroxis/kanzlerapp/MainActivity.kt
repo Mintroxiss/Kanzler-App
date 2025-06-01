@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import ru.mintroxis.kanzlerapp.ui.presentation.screens.MainScreen
+import ru.mintroxis.kanzlerapp.ui.screens.MainScreen
 
 class MainActivity : ComponentActivity() {
 

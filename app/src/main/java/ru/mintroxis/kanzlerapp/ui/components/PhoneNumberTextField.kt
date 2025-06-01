@@ -1,4 +1,4 @@
-package ru.mintroxis.kanzlerapp.ui.presentation.components
+package ru.mintroxis.kanzlerapp.ui.components
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Row
@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.owlbuddy.www.countrycodechooser.CountryCodeChooser
 import com.owlbuddy.www.countrycodechooser.utils.enums.CountryCodeType
-import ru.mintroxis.kanzlerapp.ui.presentation.utils.NanpVisualTransformation
+import ru.mintroxis.kanzlerapp.ui.NanpVisualTransformation
 import ru.mintroxis.kanzlerapp.ui.theme.Red
 import ru.mintroxis.kanzlerapp.ui.theme.rubikFamily
 

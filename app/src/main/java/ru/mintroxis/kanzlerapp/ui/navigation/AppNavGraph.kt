@@ -1,4 +1,4 @@
-package ru.mintroxis.kanzlerapp.ui.presentation.navigation
+package ru.mintroxis.kanzlerapp.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -10,7 +10,8 @@ import androidx.navigation.compose.composable
 fun AppNavGraph(
     modifier: Modifier = Modifier,
     navHostController: NavHostController,
-    homeScreenContent: @Composable () -> Unit,
+    homeMainScreenContent: @Composable () -> Unit,
+    allInterestingBannersScreenContent: @Composable () -> Unit,
     qrScreenContent: @Composable () -> Unit,
     profileScreenContent: @Composable () -> Unit
 ) {
@@ -19,7 +20,10 @@ fun AppNavGraph(
         navController = navHostController,
         startDestination = Screen.Home.route
     ) {
-        composable(Screen.Home.route) { homeScreenContent() }
+        homeScreenNavGraph(
+            homeMainScreenContent = homeMainScreenContent,
+            allInterestingBannersScreenContent = allInterestingBannersScreenContent
+        )
         composable(Screen.QR.route) { qrScreenContent() }
         composable(Screen.Profile.route) { profileScreenContent() }
     }

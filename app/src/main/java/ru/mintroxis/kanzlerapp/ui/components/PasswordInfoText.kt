@@ -1,4 +1,4 @@
-package ru.mintroxis.kanzlerapp.ui.presentation.components
+package ru.mintroxis.kanzlerapp.ui.components
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable

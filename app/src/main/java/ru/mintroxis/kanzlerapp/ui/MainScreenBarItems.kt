@@ -1,7 +1,7 @@
-package ru.mintroxis.kanzlerapp.ui.presentation.utils
+package ru.mintroxis.kanzlerapp.ui
 
 import ru.mintroxis.kanzlerapp.R
-import ru.mintroxis.kanzlerapp.ui.presentation.navigation.Screen
+import ru.mintroxis.kanzlerapp.ui.navigation.Screen
 
 sealed class MainScreenBarItems(
     val screen: Screen,

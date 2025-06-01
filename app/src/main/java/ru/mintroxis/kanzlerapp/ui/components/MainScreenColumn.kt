@@ -1,4 +1,4 @@
-package ru.mintroxis.kanzlerapp.ui.presentation.components
+package ru.mintroxis.kanzlerapp.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,9 +11,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun MainScreenColumn(content: @Composable ColumnScope.() -> Unit) {
+fun MainScreenColumn(modifier: Modifier = Modifier, content: @Composable ColumnScope.() -> Unit) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState()),
 

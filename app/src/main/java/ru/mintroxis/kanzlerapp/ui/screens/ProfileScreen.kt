@@ -1,4 +1,4 @@
-package ru.mintroxis.kanzlerapp.ui.presentation.screens
+package ru.mintroxis.kanzlerapp.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -41,8 +41,8 @@ import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import ru.mintroxis.kanzlerapp.R
 import ru.mintroxis.kanzlerapp.domain.ProfileScreenState
-import ru.mintroxis.kanzlerapp.ui.presentation.components.AddressBanner
-import ru.mintroxis.kanzlerapp.ui.presentation.components.MainScreenColumn
+import ru.mintroxis.kanzlerapp.ui.components.AddressBanner
+import ru.mintroxis.kanzlerapp.ui.components.MainScreenColumn
 import ru.mintroxis.kanzlerapp.ui.theme.DarkWhite
 import ru.mintroxis.kanzlerapp.ui.theme.Grey
 import ru.mintroxis.kanzlerapp.ui.theme.Red
@@ -54,9 +54,6 @@ import ru.mintroxis.kanzlerapp.vm.ProfileViewModel
 @Preview
 @Composable
 fun ProfileScreen() {
-    val viewModel: ProfileViewModel = viewModel()
-    val profileScreenState =
-        viewModel.profileScreenState.observeAsState(ProfileScreenState.Initial)
 
     Box(
         modifier = Modifier
@@ -65,6 +62,10 @@ fun ProfileScreen() {
     ) {
         MainScreenColumn {
             Spacer(modifier = Modifier.height(12.dp))
+
+            val viewModel: ProfileViewModel = viewModel()
+            val profileScreenState =
+                viewModel.profileScreenState.observeAsState(ProfileScreenState.Initial)
 
             when (val currentState = profileScreenState.value) {
                 is ProfileScreenState.Profile -> {

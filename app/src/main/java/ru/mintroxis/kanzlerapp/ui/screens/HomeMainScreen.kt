@@ -1,9 +1,7 @@
-package ru.mintroxis.kanzlerapp.ui.presentation.screens
+package ru.mintroxis.kanzlerapp.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -43,21 +41,17 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import ru.mintroxis.kanzlerapp.R
 import ru.mintroxis.kanzlerapp.domain.ContentBanner
 import ru.mintroxis.kanzlerapp.domain.HomeScreenState
-import ru.mintroxis.kanzlerapp.ui.presentation.components.AddressBanner
-import ru.mintroxis.kanzlerapp.ui.presentation.components.MainScreenColumn
+import ru.mintroxis.kanzlerapp.ui.components.AddressBanner
+import ru.mintroxis.kanzlerapp.ui.components.BannerElement
+import ru.mintroxis.kanzlerapp.ui.components.MainScreenColumn
 import ru.mintroxis.kanzlerapp.ui.theme.DarkWhite
-import ru.mintroxis.kanzlerapp.ui.theme.Grey
 import ru.mintroxis.kanzlerapp.ui.theme.Red
 import ru.mintroxis.kanzlerapp.ui.theme.White
 import ru.mintroxis.kanzlerapp.ui.theme.rubikFamily
 import ru.mintroxis.kanzlerapp.vm.HomeViewModel
 
 @Composable
-fun HomeScreen() {
-    val viewModel: HomeViewModel = viewModel()
-    val screenState = viewModel.homeScreenState.observeAsState(
-        HomeScreenState.Initial
-    )
+fun HomeMainScreen(allInterestingBannersClickListener: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -73,6 +67,11 @@ fun HomeScreen() {
         MainScreenColumn {
             Spacer(Modifier.height(35.dp))
 
+            val viewModel: HomeViewModel = viewModel()
+            val screenState = viewModel.homeScreenState.observeAsState(
+                HomeScreenState.Initial
+            )
+
             when (val currentState = screenState.value) {
                 is HomeScreenState.Home -> {
                     BonusCardElement(
@@ -84,9 +83,9 @@ fun HomeScreen() {
 
                     ScrollableContent(
                         stringResource(R.string.interesting),
-                        openAllAction = { /*TODO*/ }) {
+                        openAllAction = allInterestingBannersClickListener) {
                         for (item in currentState.interestingBannerList) {
-                            ClickableImageWithTextElement(item)
+                            ClickableBannerWithTitleElement(item)
                         }
                     }
 
@@ -96,7 +95,7 @@ fun HomeScreen() {
                         stringResource(R.string.promotions),
                         openAllAction = { /*TODO*/ }) {
                         for (item in currentState.promotionBannerList) {
-                            ClickableImageWithTextElement(item)
+                            ClickableBannerWithTitleElement(item)
                         }
                     }
 
@@ -114,12 +113,11 @@ fun HomeScreen() {
                 }
             }
 
-
             Spacer(Modifier.height(28.dp))
 
             SocialMediaSection()
 
-            Spacer(modifier = Modifier.height(400.dp))
+            Spacer(modifier = Modifier.height(300.dp))
         }
     }
 }
@@ -211,17 +209,13 @@ private fun ScrollableContent(
 }
 
 @Composable
-private fun ClickableImageWithTextElement(item: ContentBanner) {
-    Column(modifier = Modifier.padding(start = 10.dp)) {
-        Image(
+private fun ClickableBannerWithTitleElement(item: ContentBanner) {
+    Column(modifier = Modifier.padding(start = 25.dp)) {
+        BannerElement(
             modifier = Modifier
-                .size(width = 248.dp, height = 126.dp)
-                .clip(RoundedCornerShape(10))
-                .border(width = 1.dp, color = Grey, shape = RoundedCornerShape(10))
-                .clickable { /*TODO*/ },
-            painter = painterResource(item.imageID),
-            contentDescription = "",
-            contentScale = ContentScale.Crop
+                .size(width = 300.dp, height = 176.dp),
+            item = item,
+            clickable = { /*TODO*/ }
         )
 
         Spacer(Modifier.height(3.dp))

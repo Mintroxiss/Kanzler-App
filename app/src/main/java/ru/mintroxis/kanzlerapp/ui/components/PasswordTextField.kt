@@ -1,4 +1,4 @@
-package ru.mintroxis.kanzlerapp.ui.presentation.components
+package ru.mintroxis.kanzlerapp.ui.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape

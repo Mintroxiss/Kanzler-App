@@ -1,4 +1,4 @@
-package ru.mintroxis.kanzlerapp.ui.presentation.screens
+package ru.mintroxis.kanzlerapp.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -27,11 +27,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
-import ru.mintroxis.kanzlerapp.ui.presentation.navigation.AppNavGraph
-import ru.mintroxis.kanzlerapp.ui.presentation.navigation.NavigationState
-import ru.mintroxis.kanzlerapp.ui.presentation.navigation.rememberNavigationState
-import ru.mintroxis.kanzlerapp.ui.presentation.utils.MainScreenBarItems
+import ru.mintroxis.kanzlerapp.ui.MainScreenBarItems
+import ru.mintroxis.kanzlerapp.ui.navigation.AppNavGraph
+import ru.mintroxis.kanzlerapp.ui.navigation.NavigationState
+import ru.mintroxis.kanzlerapp.ui.navigation.Screen
+import ru.mintroxis.kanzlerapp.ui.navigation.rememberNavigationState
 import ru.mintroxis.kanzlerapp.ui.theme.DarkWhite
 import ru.mintroxis.kanzlerapp.ui.theme.LightGrey
 import ru.mintroxis.kanzlerapp.ui.theme.Red
@@ -44,12 +47,9 @@ import ru.mintroxis.kanzlerapp.ui.theme.rubikOneFamily
 fun MainScreen() {
     val navigationState = rememberNavigationState()
     val navBackStackEntry by navigationState.navHostController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.destination?.route
 
     val buttons = listOf(
-        MainScreenBarItems.Home,
-        MainScreenBarItems.QR,
-        MainScreenBarItems.Profile
+        MainScreenBarItems.Home, MainScreenBarItems.QR, MainScreenBarItems.Profile
     )
 
     Scaffold(
@@ -57,44 +57,56 @@ fun MainScreen() {
             .background(color = DarkWhite)
             .safeDrawingPadding(),
         topBar = {
+            val currentRoute = navBackStackEntry?.destination?.route
             ScaffoldTopBar(buttons = buttons, currentRoute = currentRoute)
         },
         bottomBar = {
-            ScaffoldBottomBar(buttons, currentRoute, navigationState)
+            ScaffoldBottomBar(
+                buttons = buttons,
+                navBackStackEntry = navBackStackEntry,
+                navigationState = navigationState
+            )
         },
     ) { paddingValues ->
-        AppNavGraph(
-            modifier = Modifier.padding(paddingValues),
+        AppNavGraph(modifier = Modifier.padding(paddingValues),
             navHostController = navigationState.navHostController,
-            homeScreenContent = { HomeScreen() },
+            homeMainScreenContent = {
+                HomeMainScreen(allInterestingBannersClickListener = {
+                    navigationState.navigateTo(Screen.AllInterestingBanners.route)
+                })
+            },
+            allInterestingBannersScreenContent = { AllBannersScreen() },
             qrScreenContent = { QRScreen() },
-            profileScreenContent = { ProfileScreen() }
-        )
+            profileScreenContent = { ProfileScreen() })
     }
 }
 
 @Composable
 private fun ScaffoldBottomBar(
     buttons: List<MainScreenBarItems>,
-    currentRoute: String?,
+    navBackStackEntry: NavBackStackEntry?,
     navigationState: NavigationState
 ) {
     Column {
         HorizontalDivider(modifier = Modifier.fillMaxWidth(), color = LightGrey)
         NavigationBar(containerColor = DarkWhite) {
             buttons.forEach { item ->
+                val selectedChecked = navBackStackEntry?.destination?.hierarchy?.any {
+                    it.route == item.screen.route
+                } ?: false
+
                 NavigationBarItem(
-                    selected = currentRoute == item.screen.route,
+                    selected = selectedChecked,
                     onClick = { navigationState.navigateTo(item.screen.route) },
                     icon = {
                         Image(
                             modifier = Modifier.size(28.dp),
                             painter = painterResource(item.iconID),
                             contentDescription = stringResource(item.contentDescriptionID),
-                            colorFilter = if (currentRoute == item.screen.route)
-                                ColorFilter.tint(color = White)
-                            else
-                                ColorFilter.tint(color = Color.Black)
+                            colorFilter = if (selectedChecked) ColorFilter.tint(
+                                color = White
+                            )
+                            else ColorFilter.tint(color = Color.Black)
                         )
                     },
                     label = {
@@ -144,8 +156,7 @@ private fun ScaffoldTopBar(buttons: List<MainScreenBarItems>, currentRoute: Stri
         HorizontalDivider(
             modifier = Modifier
                 .fillMaxWidth()
-                .align(Alignment.BottomCenter),
-            color = LightGrey
+                .align(Alignment.BottomCenter), color = LightGrey
         )
     }
 }

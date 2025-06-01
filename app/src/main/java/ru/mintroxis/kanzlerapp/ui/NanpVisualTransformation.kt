@@ -1,4 +1,4 @@
-package ru.mintroxis.kanzlerapp.ui.presentation.utils
+package ru.mintroxis.kanzlerapp.ui
 
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.OffsetMapping

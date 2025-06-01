@@ -1,4 +1,4 @@
-package ru.mintroxis.kanzlerapp.ui.presentation.screens
+package ru.mintroxis.kanzlerapp.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -61,11 +61,11 @@ import androidx.compose.ui.unit.sp
 import com.owlbuddy.www.countrycodechooser.CountryCodeChooser
 import com.owlbuddy.www.countrycodechooser.utils.enums.CountryCodeType
 import ru.mintroxis.kanzlerapp.R
-import ru.mintroxis.kanzlerapp.ui.presentation.components.BackIconButton
-import ru.mintroxis.kanzlerapp.ui.presentation.components.BrightButton
-import ru.mintroxis.kanzlerapp.ui.presentation.components.CircleCanvas
-import ru.mintroxis.kanzlerapp.ui.presentation.components.MainScreenColumn
-import ru.mintroxis.kanzlerapp.ui.presentation.utils.NanpVisualTransformation
+import ru.mintroxis.kanzlerapp.ui.components.BackIconButton
+import ru.mintroxis.kanzlerapp.ui.components.BrightButton
+import ru.mintroxis.kanzlerapp.ui.components.CircleCanvas
+import ru.mintroxis.kanzlerapp.ui.components.MainScreenColumn
+import ru.mintroxis.kanzlerapp.ui.NanpVisualTransformation
 import ru.mintroxis.kanzlerapp.ui.theme.AlternativeWhite
 import ru.mintroxis.kanzlerapp.ui.theme.DeepRed
 import ru.mintroxis.kanzlerapp.ui.theme.Red
