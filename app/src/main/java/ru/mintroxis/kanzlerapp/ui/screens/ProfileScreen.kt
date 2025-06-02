@@ -36,8 +36,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import ru.mintroxis.kanzlerapp.R
 import ru.mintroxis.kanzlerapp.domain.ProfileScreenState
@@ -48,7 +46,6 @@ import ru.mintroxis.kanzlerapp.ui.theme.Grey
 import ru.mintroxis.kanzlerapp.ui.theme.Red
 import ru.mintroxis.kanzlerapp.ui.theme.White
 import ru.mintroxis.kanzlerapp.ui.theme.rubikFamily
-import ru.mintroxis.kanzlerapp.vm.HomeViewModel
 import ru.mintroxis.kanzlerapp.vm.ProfileViewModel
 
 @Preview
@@ -86,7 +83,11 @@ fun ProfileScreen() {
 
                     ScrollableContent {
                         for (item in currentState.addressesBannerList) {
-                            AddressBanner(item)
+                            Spacer(modifier = Modifier.width(18.dp))
+                            AddressBanner(
+                                modifier = Modifier.size(width = 216.dp, height = 114.dp),
+                                item = item
+                            )
                         }
                     }
                 }

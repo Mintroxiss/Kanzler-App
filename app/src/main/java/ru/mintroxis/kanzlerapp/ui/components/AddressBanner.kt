@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -32,11 +32,9 @@ import ru.mintroxis.kanzlerapp.ui.theme.Lime
 import ru.mintroxis.kanzlerapp.ui.theme.rubikFamily
 
 @Composable
-fun AddressBanner(item: AddressBanner) {
+fun AddressBanner(modifier: Modifier = Modifier, item: AddressBanner, contentScale: Int = 15) {
     Box(
-        Modifier
-            .width(215.dp)
-            .padding(start = 10.dp)
+        modifier = modifier
             .clip(RoundedCornerShape(5))
             .border(width = 1.dp, color = Lime, shape = RoundedCornerShape(5))
             .background(color = Color.White)
@@ -47,44 +45,46 @@ fun AddressBanner(item: AddressBanner) {
             verticalArrangement = Arrangement.Center
         )
         {
-            Spacer(Modifier.height(13.dp))
+            Spacer(Modifier.weight(13f))
 
             Text(
                 text = item.street,
                 fontFamily = rubikFamily,
-                fontSize = 15.sp,
+                fontSize = contentScale.sp,
                 fontWeight = FontWeight.SemiBold
             )
 
-            Spacer(Modifier.height(2.dp))
+            Spacer(Modifier.weight(2f))
 
             Text(
                 text = item.address,
                 fontFamily = rubikFamily,
-                fontSize = 13.sp,
+                fontSize = (contentScale - 2).sp,
             )
 
-            Spacer(Modifier.height(1.dp))
+            Spacer(Modifier.weight(1f))
 
             Text(
                 text = item.phone,
                 fontFamily = rubikFamily,
-                fontSize = 11.sp,
+                fontSize = (contentScale - 4).sp,
             )
 
-            Spacer(Modifier.height(6.dp))
+            Spacer(Modifier.weight(6f))
 
             HorizontalDivider(
-                modifier = Modifier.width(132.dp),
+                modifier = Modifier
+                    .padding(start = 42.dp, end = 42.dp)
+                    .fillMaxWidth(),
                 thickness = 1.dp,
                 color = Color.Gray
             )
 
-            Spacer(Modifier.height(6.dp))
+            Spacer(Modifier.weight(6f))
 
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
-                    modifier = Modifier.size(20.dp),
+                    modifier = Modifier.size((contentScale + 5).dp),
                     painter = painterResource(R.drawable.clock_icon),
                     contentDescription = stringResource(R.string.clock_icon)
                 )
@@ -94,11 +94,11 @@ fun AddressBanner(item: AddressBanner) {
                 Text(
                     text = item.openingHours,
                     fontFamily = rubikFamily,
-                    fontSize = 16.sp,
+                    fontSize = (contentScale + 1).sp,
                 )
             }
 
-            Spacer(Modifier.height(13.dp))
+            Spacer(Modifier.weight(13f))
         }
     }
 }

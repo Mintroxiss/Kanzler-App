@@ -8,6 +8,8 @@ import androidx.navigation.compose.navigation
 fun NavGraphBuilder.homeScreenNavGraph(
     homeMainScreenContent: @Composable () -> Unit,
     allInterestingBannersScreenContent: @Composable () -> Unit,
+    allPromotionsBannersContent: @Composable () -> Unit,
+    allAddressBannersContent: @Composable () -> Unit,
 ) {
     navigation(startDestination = Screen.HomeMain.route, route = Screen.Home.route) {
         composable(Screen.HomeMain.route) {
@@ -15,6 +17,12 @@ fun NavGraphBuilder.homeScreenNavGraph(
         }
         composable(Screen.AllInterestingBanners.route) {
             allInterestingBannersScreenContent()
+        }
+        composable(Screen.AllPromotionsBanners.route) {
+            allPromotionsBannersContent()
+        }
+        composable(Screen.AllAddressBanners.route) {
+            allAddressBannersContent()
         }
     }
 }

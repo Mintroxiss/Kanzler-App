@@ -59,7 +59,7 @@ fun QRScreen() {
 private fun QRCodeSection() {
     Card(
         modifier = Modifier
-            .size(300.dp, 422.dp),
+            .size(330.dp, 452.dp),
         shape = RoundedCornerShape(20.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 20.dp),
         colors = CardDefaults.cardColors(containerColor = LightGrey)
@@ -81,13 +81,13 @@ private fun QRCodeSection() {
 
             Box(
                 modifier = Modifier
-                    .size(200.dp)
+                    .size(230.dp)
                     .clip(RoundedCornerShape(18.dp))
                     .background(White),
                 contentAlignment = Alignment.Center
             ) {
                 Image(
-                    modifier = Modifier.size(150.dp),
+                    modifier = Modifier.size(180.dp),
                     painter = painterResource(R.drawable.qr_code),
                     contentDescription = stringResource(R.string.qr_code)
                 )

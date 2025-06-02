@@ -61,7 +61,7 @@ import androidx.compose.ui.unit.sp
 import com.owlbuddy.www.countrycodechooser.CountryCodeChooser
 import com.owlbuddy.www.countrycodechooser.utils.enums.CountryCodeType
 import ru.mintroxis.kanzlerapp.R
-import ru.mintroxis.kanzlerapp.ui.components.BackIconButton
+import ru.mintroxis.kanzlerapp.ui.components.FloatingBackButton
 import ru.mintroxis.kanzlerapp.ui.components.BrightButton
 import ru.mintroxis.kanzlerapp.ui.components.CircleCanvas
 import ru.mintroxis.kanzlerapp.ui.components.MainScreenColumn
@@ -118,7 +118,7 @@ private fun HeaderSection() {
             .height(60.dp)
             .padding(start = 18.dp, end = 18.dp)
     ) {
-        BackIconButton { /*TODO()*/ }
+        FloatingBackButton(onClick = { /*TODO*/ })
 
         Text(
             modifier = Modifier.align(Alignment.TopCenter),

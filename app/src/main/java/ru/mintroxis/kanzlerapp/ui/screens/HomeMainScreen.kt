@@ -2,6 +2,7 @@ package ru.mintroxis.kanzlerapp.ui.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -21,7 +22,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -37,7 +38,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import ru.mintroxis.kanzlerapp.R
 import ru.mintroxis.kanzlerapp.domain.ContentBanner
 import ru.mintroxis.kanzlerapp.domain.HomeScreenState
@@ -48,10 +48,15 @@ import ru.mintroxis.kanzlerapp.ui.theme.DarkWhite
 import ru.mintroxis.kanzlerapp.ui.theme.Red
 import ru.mintroxis.kanzlerapp.ui.theme.White
 import ru.mintroxis.kanzlerapp.ui.theme.rubikFamily
-import ru.mintroxis.kanzlerapp.vm.HomeViewModel
 
 @Composable
-fun HomeMainScreen(allInterestingBannersClickListener: () -> Unit) {
+fun HomeMainScreen(
+    allInterestingBannersClickListener: () -> Unit,
+    allPromotionsBannerClickListener: () -> Unit,
+    allAddressBannerClickListener: () -> Unit,
+    qrCodeBannerClickListener: () -> Unit,
+    screenState: State<HomeScreenState>,
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -67,24 +72,22 @@ fun HomeMainScreen(allInterestingBannersClickListener: () -> Unit) {
         MainScreenColumn {
             Spacer(Modifier.height(35.dp))
 
-            val viewModel: HomeViewModel = viewModel()
-            val screenState = viewModel.homeScreenState.observeAsState(
-                HomeScreenState.Initial
-            )
-
             when (val currentState = screenState.value) {
                 is HomeScreenState.Home -> {
                     BonusCardElement(
                         qrImage = currentState.qrImage,
-                        bonuses = currentState.bonuses
+                        bonuses = currentState.bonuses,
+                        onItemClickListener = { qrCodeBannerClickListener() }
                     )
 
                     Spacer(Modifier.height(28.dp))
 
                     ScrollableContent(
                         stringResource(R.string.interesting),
-                        openAllAction = allInterestingBannersClickListener) {
+                        openAllAction = { allInterestingBannersClickListener() }
+                    ) {
                         for (item in currentState.interestingBannerList) {
+                            Spacer(modifier = Modifier.width(25.dp))
                             ClickableBannerWithTitleElement(item)
                         }
                     }
@@ -92,9 +95,10 @@ fun HomeMainScreen(allInterestingBannersClickListener: () -> Unit) {
                     Spacer(Modifier.height(28.dp))
 
                     ScrollableContent(
-                        stringResource(R.string.promotions),
-                        openAllAction = { /*TODO*/ }) {
-                        for (item in currentState.promotionBannerList) {
+                        text = stringResource(R.string.promotions),
+                        openAllAction = { allPromotionsBannerClickListener() }) {
+                        for (item in currentState.promotionsBannerList) {
+                            Spacer(modifier = Modifier.width(25.dp))
                             ClickableBannerWithTitleElement(item)
                         }
                     }
@@ -103,8 +107,14 @@ fun HomeMainScreen(allInterestingBannersClickListener: () -> Unit) {
 
                     ScrollableContent(
                         text = stringResource(R.string.store_addresses),
-                        openAllAction = { /*TODO*/ }) {
-                        for (item in currentState.addressesBannerList) AddressBanner(item)
+                        openAllAction = { allAddressBannerClickListener() }) {
+                        for (item in currentState.addressesBannerList) {
+                            Spacer(modifier = Modifier.width(25.dp))
+                            AddressBanner(
+                                modifier = Modifier.size(width = 216.dp, height = 114.dp),
+                                item = item
+                            )
+                        }
                     }
                 }
 
@@ -199,21 +209,19 @@ private fun ScrollableContent(
         }
 
         Row(Modifier.horizontalScroll(rememberScrollState())) {
-            Spacer(modifier = Modifier.width(15.dp))
-
             scrollableItems()
 
-            Spacer(modifier = Modifier.width(24.dp))
+            Spacer(modifier = Modifier.width(25.dp))
         }
     }
 }
 
 @Composable
 private fun ClickableBannerWithTitleElement(item: ContentBanner) {
-    Column(modifier = Modifier.padding(start = 25.dp)) {
+    Column(modifier = Modifier) {
         BannerElement(
             modifier = Modifier
-                .size(width = 300.dp, height = 176.dp),
+                .size(width = 262.dp, height = 156.dp),
             item = item,
             clickable = { /*TODO*/ }
         )
@@ -263,13 +271,14 @@ private fun OpenContentButton(text: String, onClick: () -> Unit) {
 }
 
 @Composable
-private fun BonusCardElement(qrImage: Int, bonuses: String) {
+private fun BonusCardElement(onItemClickListener: () -> Unit, qrImage: Int, bonuses: String) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = 25.dp, end = 25.dp)
             .clip(RoundedCornerShape(10))
             .background(Red)
+            .clickable { onItemClickListener() }
             .padding(21.dp)
     ) {
         Text(
@@ -296,7 +305,7 @@ private fun BonusCardElement(qrImage: Int, bonuses: String) {
 
         Box(
             modifier = Modifier
-                .size(126.dp)
+                .size(134.dp)
                 .clip(RoundedCornerShape(10))
                 .background(White)
                 .align(Alignment.CenterEnd)

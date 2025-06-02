@@ -37,8 +37,31 @@ class HomeViewModel : ViewModel() {
                     text = "",
                     date = ""
                 ),
+                ContentBanner(
+                    imageID = R.drawable.calculator,
+                    title = "Калькуляторы - зло!",
+                    text = "",
+                    date = ""
+                ),
+                ContentBanner(
+                    imageID = R.drawable.get_pen,
+                    title = "Получи конфеты в подарок",
+                    text = "",
+                    date = ""
+                )
             ),
-            promotionBannerList = listOf(
+            promotionsBannerList = listOf(
+                ContentBanner(
+                    imageID = R.drawable.presents_from_attache,
+                    title = "Attache несёт радость!",
+                    text = "",
+                    date = ""
+                ), ContentBanner(
+                    imageID = R.drawable.calculator,
+                    title = "2 калькулятора\nпо цене 1",
+                    text = "",
+                    date = ""
+                ),
                 ContentBanner(
                     imageID = R.drawable.presents_from_attache,
                     title = "Attache несёт радость!",
@@ -52,6 +75,18 @@ class HomeViewModel : ViewModel() {
                 )
             ),
             addressesBannerList = listOf(
+                AddressBanner(
+                    street = "Гоголя/Огонбаева",
+                    address = "Огонбаева Атая,222",
+                    phone = "+996 777-90-22-33",
+                    openingHours = "09:00 - 18:00"
+                ),
+                AddressBanner(
+                    street = "Рубеля/Новодедова",
+                    address = "Рубеля Охаё,222",
+                    phone = "+992 737-94-21-03",
+                    openingHours = "09:00 - 20:00"
+                ),
                 AddressBanner(
                     street = "Гоголя/Огонбаева",
                     address = "Огонбаева Атая,222",

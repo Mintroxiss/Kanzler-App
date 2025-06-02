@@ -12,8 +12,10 @@ fun AppNavGraph(
     navHostController: NavHostController,
     homeMainScreenContent: @Composable () -> Unit,
     allInterestingBannersScreenContent: @Composable () -> Unit,
+    allPromotionsBannersScreenContent: @Composable () -> Unit,
+    allAddressBannersContent: @Composable () -> Unit,
     qrScreenContent: @Composable () -> Unit,
-    profileScreenContent: @Composable () -> Unit
+    profileScreenContent: @Composable () -> Unit,
 ) {
     NavHost(
         modifier = modifier,
@@ -21,8 +23,10 @@ fun AppNavGraph(
         startDestination = Screen.Home.route
     ) {
         homeScreenNavGraph(
-            homeMainScreenContent = homeMainScreenContent,
-            allInterestingBannersScreenContent = allInterestingBannersScreenContent
+            homeMainScreenContent = { homeMainScreenContent() },
+            allInterestingBannersScreenContent = { allInterestingBannersScreenContent() },
+            allPromotionsBannersContent = { allPromotionsBannersScreenContent() },
+            allAddressBannersContent = { allAddressBannersContent() }
         )
         composable(Screen.QR.route) { qrScreenContent() }
         composable(Screen.Profile.route) { profileScreenContent() }

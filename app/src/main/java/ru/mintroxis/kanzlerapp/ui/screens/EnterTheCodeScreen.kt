@@ -36,7 +36,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.mintroxis.kanzlerapp.R
-import ru.mintroxis.kanzlerapp.ui.components.BackIconButton
+import ru.mintroxis.kanzlerapp.ui.components.FloatingBackButton
 import ru.mintroxis.kanzlerapp.ui.components.BrightButton
 import ru.mintroxis.kanzlerapp.ui.components.InfoIconButton
 import ru.mintroxis.kanzlerapp.ui.components.LogoImage
@@ -166,7 +166,7 @@ private fun HeaderSection() {
                 color = Color.Black
             )
 
-            BackIconButton { /*TODO()*/ }
+            FloatingBackButton(onClick = { /*TODO*/ })
 
             InfoIconButton(Modifier.align(Alignment.BottomEnd)) { /*TODO*/ }
         }

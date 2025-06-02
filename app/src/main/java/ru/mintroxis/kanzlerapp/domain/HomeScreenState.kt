@@ -8,7 +8,7 @@ sealed class HomeScreenState {
         val qrImage: Int,
         val bonuses: String,
         val interestingBannerList: List<ContentBanner>,
-        val promotionBannerList: List<ContentBanner>,
+        val promotionsBannerList: List<ContentBanner>,
         val addressesBannerList: List<AddressBanner>
     ) : HomeScreenState()
 }

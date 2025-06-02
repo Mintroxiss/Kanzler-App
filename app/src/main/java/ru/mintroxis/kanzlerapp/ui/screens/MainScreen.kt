@@ -17,6 +17,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,9 +28,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
+import ru.mintroxis.kanzlerapp.domain.HomeScreenState
 import ru.mintroxis.kanzlerapp.ui.MainScreenBarItems
 import ru.mintroxis.kanzlerapp.ui.navigation.AppNavGraph
 import ru.mintroxis.kanzlerapp.ui.navigation.NavigationState
@@ -41,6 +44,7 @@ import ru.mintroxis.kanzlerapp.ui.theme.Red
 import ru.mintroxis.kanzlerapp.ui.theme.White
 import ru.mintroxis.kanzlerapp.ui.theme.rubikFamily
 import ru.mintroxis.kanzlerapp.ui.theme.rubikOneFamily
+import ru.mintroxis.kanzlerapp.vm.HomeViewModel
 
 @Preview
 @Composable
@@ -68,14 +72,59 @@ fun MainScreen() {
             )
         },
     ) { paddingValues ->
+        val homeViewModel: HomeViewModel = viewModel()
+        val homeScreenState = homeViewModel.homeScreenState.observeAsState(HomeScreenState.Initial)
+        val currentState = homeScreenState.value
+
         AppNavGraph(modifier = Modifier.padding(paddingValues),
             navHostController = navigationState.navHostController,
             homeMainScreenContent = {
-                HomeMainScreen(allInterestingBannersClickListener = {
-                    navigationState.navigateTo(Screen.AllInterestingBanners.route)
-                })
+                HomeMainScreen(
+                    screenState = homeScreenState,
+                    allInterestingBannersClickListener = {
+                        navigationState.navigateTo(Screen.AllInterestingBanners.route)
+                    },
+                    allPromotionsBannerClickListener = {
+                        navigationState.navigateTo(Screen.AllPromotionsBanners.route)
+                    },
+                    allAddressBannerClickListener = {
+                        navigationState.navigateTo(Screen.AllAddressBanners.route)
+                    },
+                    qrCodeBannerClickListener = {
+                        navigationState.navigateTo(Screen.QR.route)
+                    }
+                )
             },
-            allInterestingBannersScreenContent = { AllBannersScreen() },
+            allInterestingBannersScreenContent = {
+                if (currentState is HomeScreenState.Home) {
+                    AllBannersScreen(
+                        banners = currentState.interestingBannerList,
+                        backButtonOnClickListener = {
+                            navigationState.navigateTo(Screen.HomeMain.route)
+                        }
+                    )
+                }
+            },
+            allPromotionsBannersScreenContent = {
+                if (currentState is HomeScreenState.Home) {
+                    AllBannersScreen(
+                        banners = currentState.promotionsBannerList,
+                        backButtonOnClickListener = {
+                            navigationState.navigateTo(Screen.HomeMain.route)
+                        }
+                    )
+                }
+            },
+            allAddressBannersContent = {
+                if (currentState is HomeScreenState.Home) {
+                    AllAddressBannersScreen(
+                        backButtonOnClickListener = {
+                            navigationState.navigateTo(Screen.HomeMain.route)
+                        },
+                        banners = currentState.addressesBannerList
+                    )
+                }
+            },
             qrScreenContent = { QRScreen() },
             profileScreenContent = { ProfileScreen() })
     }
